@@ -1,0 +1,552 @@
+/*********************************************************************************
+**
+**   $Id$
+**   Copyright (c) 2004 Joe Croft <joe@croftj.net>
+**   
+**   This file is part of ah2.
+**
+**   ah2 is free software; you can redistribute it and/or modify
+**   it under the terms of the GNU General Public License as published by
+**   the Free Software Foundation; either version 2 of the License, or
+**   (at your option) any later version.
+**
+**   Foobar is distributed in the hope that it will be useful,
+**   but WITHOUT ANY WARRANTY; without even the implied warranty of
+**   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**   GNU General Public License for more details.
+**
+**   You should have received a copy of the GNU General Public License
+**   along with Foobar; if not, write to the Free Software
+**   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+**
+*********************************************************************************/
+
+/*
+**
+** All of the tables and views specified in this file require the ident field! 
+** It is used as the primary key in the tables and is referenced from the views
+**
+*/
+
+/*
+**   Uncomment these drop statements to remove existing tables.
+**
+**   THIS WILL CAUSE YOU TO LOSE ANY EXISTING DATA!!!!
+*/
+
+-- drop view if exists workorder_totals;
+-- drop view if exists wo_parts_total;
+-- drop view if exists wo_labor_total;
+-- drop view if exists workorders_v;
+-- drop view if exists wo_labor_v;
+-- drop view if exists wo_taxparts_total;
+-- drop view if exists wo_taxparts_v;
+-- drop view if exists wo_parts_v;
+-- drop table if exists wo_parts;
+-- drop table if exists wo_labor;
+-- drop table if exists job_parts;
+-- drop table if exists jobs;
+-- drop view if exists vehicles_v;
+-- drop table if exists wo_vehicles;
+-- drop table if exists wo_customers;
+-- drop table if exists workorders;
+-- drop table if exists vehicles;
+-- drop table if exists customers;
+-- drop view if exists vendors_v;
+-- drop view if exists parts_v;
+-- drop table if exists inventory;
+-- drop table if exists part2vendor;
+-- drop table if exists parts;
+-- drop table if exists vendors;
+-- drop table if exists auto_makes;
+-- 
+-- drop table if exists dropped_vehicles;
+-- drop table if exists duplicate_vehicles;
+
+create table jobs (
+   descr          varchar(256),
+   make           varchar(20),
+   model          varchar(20),
+   charge4parts   char(1),
+   labor          float,
+   ident          serial primary key
+);
+
+insert into jobs values ('1', '', '', '');
+select setval('jobs_ident_seq', 1);
+
+/*
+**
+** Fields referenced from code:
+**
+**    retail
+**    onhand
+**    pn
+**
+*/
+create table parts (
+   pn       varchar(64),
+   make     varchar(64),
+   category varchar(64),
+   descr    varchar(256),
+   lowmark  float,
+   buylevel float,
+   measure  varchar(12),
+   supply   char(1),
+   ident    serial primary key
+);
+
+create table vendors (
+   active         char(1) default 'Y',
+   name           varchar(50),
+   contact        varchar(50),
+   address1       varchar(50),
+   address2       varchar(50),
+   city           varchar(50),
+   state          varchar(2),
+   zipcode        varchar(10),
+   phone1         varchar(14),
+   phone2         varchar(14),
+   fax            varchar(14),
+   url            varchar(128),
+   email          varchar(128),
+   account1       varchar(50),
+   descr          varchar(512),
+   ident          serial primary key
+);
+
+CREATE TABLE part2vendor (
+   part     int references parts on delete cascade,
+   vendor   int references vendors on delete cascade,
+   onhand   float,
+   location varchar(40),
+   cost     numeric(15,2),
+   retail   numeric(15,2),
+   pn       varchar(64),
+   ident    serial primary key
+);
+
+create view parts_v as (
+   select part2vendor.pn as pn,
+         part2vendor.onhand as onhand,
+         part2vendor.location as location,
+         part2vendor.cost as cost,
+         part2vendor.retail as retail,
+         part2vendor.ident as ident,
+         parts.pn as mfg_pn,
+         parts.make as make,
+         parts.category as category,
+         parts.descr as descr,
+         parts.lowmark as lowmark,
+         parts.buylevel as buylevel,
+         parts.measure as measure,
+         parts.supply as supply,
+         parts.ident as master_part,
+         vendors.name as vendor,
+         vendors.contact as contact,
+         vendors.phone1 as phone1,
+         vendors.phone2 as phone2,
+         vendors.url as url,
+         vendors.fax as fax,
+         vendors.email as email,
+         vendors.account1 as account,
+         vendors.ident as vendor_ident
+      from part2vendor, parts, vendors
+      where parts.ident = part2vendor.part and
+         vendors.ident = part2vendor.vendor
+);
+
+create view vendors_v as 
+   (select vendors.ident as vendor,
+           vendors.name as name,
+           vendors.address1 as address,
+           vendors.city as city,
+           vendors.state as state,
+           vendors.contact as contact,
+           vendors.phone1 as phone1,
+           vendors.phone2 as phone2,
+           vendors.fax as fax2,
+           vendors.url as url,
+           parts.ident as part,
+           part2vendor.ident as p2v
+      from vendors, parts, part2vendor
+      where parts.ident = part2vendor.part and
+            vendors.ident = part2vendor.vendor
+      order by vendors.name
+   );
+
+create table customers (
+   name        varchar(40),
+   addr        varchar(40),
+   city        varchar(20),
+   state       char(2),
+   zip         varchar(10),
+   contact     varchar(60),
+   home_pn     varchar(20),
+   work_pn     varchar(20),
+   beeper      varchar(20),
+   url         varchar(128),
+   email       varchar(128),
+   tax_id      char(20),
+   ident       serial primary key
+);
+
+INSERT INTO customers (ident, name) VALUES (1, 'RETAIL');
+select setval('customers_ident_seq', 1);
+
+/*
+**
+** Fields referenced from code:
+**
+**    owner
+**    odom
+**
+*/
+create table vehicles (
+   make     varchar(32),
+   model    varchar(32),
+   model_yr int,
+   color    varchar(20),
+   tag      varchar(13),
+   vin      varchar(64),
+   engine   varchar(16),
+   trans    varchar(16),
+   odom     varchar(8),
+   owner    int references customers,
+   ident    serial primary key
+);
+INSERT INTO vehicles (ident, make, model) VALUES (1, 'N/A', 'N/A');
+select setval('vehicles_ident_seq', 1);
+
+create table dropped_vehicles (
+   make     varchar(20),
+   model    varchar(20),
+   model_yr int,
+   color    varchar(20),
+   tag      varchar(13),
+   vin      varchar(40),
+   engine   varchar(15),
+   trans    varchar(10),
+   odom     varchar(8),
+   owner    int,
+   ident    serial primary key
+);
+
+/*
+**
+** Fields referenced from code:
+**
+**    customer
+**    vehicle
+**    closed
+**    date_in
+**    date_out
+**    r_labor
+**    r_tax
+**    hazmat
+**    labor
+**    parts
+**    tax
+**    total
+**    od_out
+**
+*/
+create table workorders (
+   closed      char(1) default 'N',
+   recorded    char(1) default 'N',
+   date_in     date,
+   date_out    date,
+   od_in       varchar(8),
+   od_out      varchar(8),
+   r_labor     numeric(15,2),
+   r_tax       float,
+   hazmat      numeric(15,2),
+   labor       numeric(15,2),
+   parts       numeric(15,2),
+   tax         numeric(15,2),
+   total       numeric(15,2),
+   customer    int references customers,
+   vehicle     int references vehicles,
+   recomend    text,
+   ident       serial primary key
+);
+
+
+
+create view vehicles_v as 
+   (select customers.name as owner, 
+           customers.ident as customer,
+           vehicles.ident,
+           vehicles.make, 
+           vehicles.model, 
+           vehicles.model_yr, 
+           vehicles.color, 
+           vehicles.tag, 
+           vehicles.vin, 
+           vehicles.engine, 
+           vehicles.trans, 
+           vehicles.odom
+      from customers, vehicles
+      where customers.ident = vehicles.owner
+      group by customers.name, 
+            customers.ident,
+            vehicles.make, 
+            vehicles.model, 
+            vehicles.model_yr, 
+            vehicles.color, 
+            vehicles.tag, 
+            vehicles.vin, 
+            vehicles.engine, 
+            vehicles.trans, 
+            vehicles.ident, 
+            vehicles.odom
+   );
+
+create table wo_customers (
+   name        varchar(40),
+   addr        varchar(40),
+   city        varchar(20),
+   state       char(2),
+   zip         varchar(10),
+   contact     varchar(60),
+   home_pn     varchar(20),
+   work_pn     varchar(20),
+   beeper      varchar(20),
+   url         varchar(128),
+   email       varchar(128),
+   tax_id      char(20),
+   customer    int references customers on delete set NULL,
+   workorder   int references workorders on delete cascade,
+   ident       serial primary key
+);
+
+create table wo_vehicles (
+   make     varchar(32),
+   model    varchar(32),
+   model_yr int,
+   color    varchar(20),
+   tag      varchar(13),
+   vin      varchar(64),
+   engine   varchar(16),
+   trans    varchar(16),
+   odom     varchar(8),
+   owner    int references wo_customers on delete cascade,
+   ident    serial primary key
+);
+
+/*
+**
+** Fields referenced from code:
+**
+**    workorder
+**    descr
+**    hours
+**    job      Will be used in future releases
+**
+*/
+create table wo_labor (
+   tech        char(3),
+   descr       varchar(256),
+   hours       float,
+   job         int references jobs on delete set NULL,
+   taxable     char(1),
+   workorder   int references workorders on delete cascade,
+   ident       serial primary key
+);
+
+create view wo_labor_v as (
+   select wo_labor.ident, tech, descr, hours, job, cast (cast(hours as numeric) * workorders.r_labor as numeric(15,2)) as cost, workorder from wo_labor, workorders where wo_labor.workorder = workorders.ident
+);
+
+/*
+**
+** Fields referenced from code:
+**
+**    workorder
+**    pn
+**    descr
+**    qty
+**    parts
+**    cost
+**    measure  If referenced in the forms.xml file
+**    job      Will be used in future releases
+**
+*/
+create table wo_parts (
+   pn          varchar(25),
+   descr       varchar(256),
+   qty         float,
+   measure     varchar(6),
+   cost        numeric(15,2),
+   taxable     char(1),
+   supply      char(1),
+   part        int references part2vendor on delete set NULL,
+   job         int references wo_labor on delete cascade,
+   workorder   int references workorders on delete cascade,
+   ident       serial primary key
+);
+
+create view wo_parts_v as (
+   select ident, pn, descr, qty, measure, cost, taxable, supply, part, job, workorder, cast(cast(qty as numeric) * cost as numeric(15,2)) as total 
+      from wo_parts
+);
+
+create view wo_taxparts_v as (
+   select ident, pn, descr, qty, measure, cost, taxable, supply, part, job, workorder, cast(cast(qty as numeric) * cost as numeric(15,2)) as total 
+      from wo_parts where taxable = 'Y'
+);
+
+create table job_parts (
+   job      int references jobs on delete cascade,
+   part     int references parts on delete set NULL,
+   pn          varchar(25),
+   descr    varchar(256),
+   qty      float,
+   measure  varchar(6),
+   cost     numeric(15,2),
+   ident    serial primary key
+);
+
+create table inventory (
+   part           int references parts on delete cascade,
+   vendor         int references vendors on delete set NULL,
+   po             varchar(20),
+   ordered        date,
+   received       date,
+   wholesale      numeric(15,2),
+   list           numeric(15,2),
+   qty_buy        float,
+   qty_received   float,
+   state          int,
+   ident          serial primary key
+);
+
+create table duplicate_vehicles (
+   original       int,
+   duplicate      int,
+   ident          serial primary key
+);
+
+create view workorders_v as 
+(select  workorders.ident, 
+         workorders.closed, 
+         workorders.r_tax, 
+         workorders.r_labor, 
+         customers.name, 
+         vehicles.make, 
+         vehicles.model, 
+         vehicles.color, 
+         vehicles.tag, 
+         vehicles.vin, 
+         workorders.parts, 
+         workorders.labor, 
+         workorders.date_in, 
+         workorders.total, 
+         workorders.vehicle, 
+         workorders.customer 
+   from customers, vehicles, workorders 
+   where workorders.customer = customers.ident and workorders.vehicle = vehicles.ident);
+
+create rule wo_view_delete as on delete to workorders_v
+   do instead delete from workorders where ident = OLD.ident;
+
+create rule wo_view_insert as on insert to workorders_v
+   do instead insert into workorders (ident, customer, date_in, vehicle, closed, r_tax, r_labor) 
+                 values (new.ident, new.customer, new.date_in, new.vehicle, new.closed, new.r_tax, new.r_labor);
+
+create view wo_parts_total as (
+   select cast((select sum(total) from wo_parts_v where workorder = workorders.ident) as numeric(15,2)) as total,
+          workorders.ident
+      from workorders
+);
+
+create view wo_taxparts_total as (
+   select cast((select sum(total) from wo_taxparts_v where workorder = workorders.ident) as numeric(15,2)) as total,
+          workorders.ident
+      from workorders
+);
+
+
+create view wo_labor_total as (
+   select cast((select sum(cost) from wo_labor_v where workorder = workorders.ident) as numeric(15,2)) as total,
+          workorders.ident
+      from workorders
+);
+
+create view workorder_totals as (
+   select 
+      sum(wo_parts_total.total) as parts, 
+      sum(wo_taxparts_total.total) as taxable_parts, 
+      sum(wo_labor_total.total) as labor, 
+      sum(workorders.tax) as tax, 
+      sum(hazmat) as hazmat
+    from workorders, wo_parts_total, wo_taxparts_total, wo_labor_total
+    where 
+      wo_parts_total.ident = workorders.ident and
+      wo_taxparts_total.ident = workorders.ident and
+      wo_labor_total.ident = workorders.ident
+);
+   
+/*
+create table auto_makes (
+   make     varchar(32),
+   model    varchar(64),
+   year_beg int,
+   year_end int,
+   engine   varchar(16),
+   trans    varchar(16),
+   ident    serial primary key
+);
+
+CREATE TABLE accounts (
+   active      character(1) DEFAULT 'Y',
+   name        character varying(25),
+   descr       character varying(512),
+   revenue     character(1),
+   expense     character(1),
+   cash        character(1),
+   ident       serial primary key
+);
+
+create table ledger (
+   ident       serial primary key,
+   descr       varchar(512),
+   type        char(2) default 'CR',
+   amount      numeric(12,2),
+   mult        double precision,
+   date_in     date default 'today',
+   parent      int,
+   vendor      int references vendors default 1,
+   account     int references accounts default 1,
+   ident       serial primary key
+);
+
+create view genledger as (select ledger.ident, ledger.closed, ledger.descr, ledger.type, ledger.amount, ledger.date_in, ledger.parent, ledger.mult,
+                          vendors.ident as vendor_id, 
+                          accounts.ident as account_id, 
+                          vendors.name as vendor, accounts.name as account from
+                          ledger, accounts, vendors where accounts.ident = ledger.account and vendors.ident = ledger.vendor);
+create view debits as select sum(amount) from ledger where type = 'DB' and closed != 'Y';
+
+create view credits as select sum(amount) from ledger where type = 'CR' and closed != 'Y';
+
+insert into vendors (name, descr, ident) values ('Autohouse', 'Autohouse European', 0);
+insert into vendors (name, descr) values ('N/A', '');
+
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'N', 'Y', 'Cash',                'Cash');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'N', 'Y', 'Accounts Payable',    'Credit cards etc.');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'N', 'Y', 'Bussiness Checking',  'Bussiness Checking account');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'N', 'Y', 'Bussiness Checking',  'Bussiness Charge account');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Part Purchases',      'Part Purchases');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Supply Purchases',    'Auto Supplies');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Shipping',            'Shipping costs');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Expense Supplies',    'Office Supplies');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Expense Equipment',   'Business Equipment');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Expense Software',    'Business Software');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Expense Interest',    'Credit cards etc.');
+insert into accounts (revenue, expense, cash, name, descr) values ('N', 'Y', 'N', 'Sales Tax paid',      'Sales tax paid');
+insert into accounts (revenue, expense, cash, name, descr) values ('Y', 'N', 'N', 'Part Sales',          'Part sales');
+insert into accounts (revenue, expense, cash, name, descr) values ('Y', 'N', 'N', 'Labor Sales',         'Labor sales');
+insert into accounts (revenue, expense, cash, name, descr) values ('Y', 'N', 'N', 'Sales Tax Collected', 'Sales tax collected');
+*/
+

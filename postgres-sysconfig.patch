@@ -1,0 +1,19 @@
+*** postgresql	Fri Sep 21 05:14:19 2007
+--- postgresql.new	Fri Sep 21 05:27:36 2007
+***************
+*** 20,26 ****
+  # Don't put "-D datadir" here since it is set by the startup script
+  # based on the variable POSTGRES_DATADIR above.
+  #
+! POSTGRES_OPTIONS=""
+  
+  ## Path:	   Applications/PostgreSQL
+  ## Description:    The PostgreSQL Database System
+--- 20,26 ----
+  # Don't put "-D datadir" here since it is set by the startup script
+  # based on the variable POSTGRES_DATADIR above.
+  #
+! POSTGRES_OPTIONS="-i"
+  
+  ## Path:	   Applications/PostgreSQL
+  ## Description:    The PostgreSQL Database System

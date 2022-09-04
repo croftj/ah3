@@ -1,0 +1,82 @@
+1.0 Sun May 09 2010
+   Made the password hidden
+   Added include files for stdio
+   Fixed the table drops in the psql file to have proper syntax and order
+   Fixed the opometer controls for the vehicle to go from 0 to 9999999.
+
+beta14 Sun Dec 12 2009
+   Lots of little changes to enhance usability by lessening the dependance on the mouse.
+   Modified to tie the database forms to the associated tables more tightly. 
+   Modified to have the Alt-Up and Alt-Down arrows scroll mthrough the tables.
+   Added the Window Menu to let the user navigate the tabs using the keyboard.
+
+beta13 Sat Nov 7 2009
+   Fixed hange on deleting a record.
+
+beta12 Sun Feb 1 2009
+   Added a Lookup Parts button to the Ah3xs Parts tab
+   Modified to iterate through all of the tabs on startup to fix geometry issues.
+   Modified to enable/disable the Lookup Parts button at the appropriate times.
+   Changed libraries to the appropriate versions for the binary installs
+
+
+beta11 Sat Nov 29 2008
+   Fixed bug keeping the sql files from loading.
+   Fixed 1st record insert error from forms
+   Built binaries to the Qt-4.4.3 libraries.
+   Added ability to have validators and echo modes to lineedit entries in forms
+
+beta10 Tue May 27 2008
+   Modified to search multiple location for reports.
+   Added Win32 DLLs and Linux shared libraries to the project for the prebuilts.
+   Modified to ignore the table headers when the tables have no data.
+   Numerous small changes to ready the program for release on Windows.
+
+beta9 Sat Apr 27 2008
+   Added Inventory to the Small Screen version.
+   Modified to allow setting the fields which calculate through the XML file
+
+beta8 Sat Apr 12 2008
+   Added small screen interface for systems with lower resolution displays  
+   Fixed insert issues  
+   Fixed errors with workorder totaling  
+
+beta7 Fri Oct 26 2007
+   Added Whatis text to the remaining forms and tables.
+   Added ability to have a graphic on a report.
+   Bolstered documentation yet a little more.
+   Changed backup.sh to have backups occur on shutdown when restoring system.
+
+beta6 Mon Oct 15 2007
+   Added sales reports
+   Added configuration sections to the user documentation
+   Enhanced the input types for reports
+   Added backup script
+   Made the Dialogs which cover the main window slightly darker to help them standout
+
+beta5 Tue Sep 25 2007
+   Added WhatsThis tags to help identify which dialog elements use which forms in the xml configuration file
+   Modified spec file to be generic, moved original to ah3-spec.suse to keep the one for producing the open suse build
+   Added files and scripts, added to the documentation for installing the database schema and configuring postgres
+   Made clicking Done or pressing <Enter> on the form save any outstanding changes on the forms. Made pressing <Esc> or clicking the 'X' on the dialog frame discard any ne outstanding records.
+
+beta4 Mon Sep 09 2007
+   Added User's Manual
+   Added Predifiened Jobs
+   Added ability to close work orders
+   Fixed to not allow deleting customers and vehicles assigned to existing work orders
+   Fixed ability to enter in new customers, vehicles and work orders
+   Added example database (/opt/ah3/database/example_db.sql)
+
+beta3 Sun Aug 19 2007 - joe@croftj.net
+   Fixed entering in new invoices, it is now possible
+   Modified Customer and Vehicle Entry dialogs to make them more inuitive
+   Modified Invoice sample to include totals and sample legalese to the bottom
+   Fixed spec file so the default xml file is put in the proper directory when the rpm is installed.
+   Fixed Labor and Parts entry dialogs to enter new records and assign them to the current workorder
+
+beta2 Thu Aug 16 2007 - joe@croftj.net
+   Connected the Add Vendor Button on the Inventory tab.
+   Added the missing Dialog titles
+   Added spec file for the SuSE build service
+   Added Appropriate icons and desktop file

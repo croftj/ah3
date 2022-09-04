@@ -1,0 +1,11 @@
+# KDE Config File  
+[KDE Desktop Entry]
+Type=Application
+Exec=ah3
+Icon=/opt/ah3/icons/ah3-48.png
+Comment=AutoHouse
+Comment[de]=
+Terminal=0
+Name=AutoHouse
+Name[de]=AutoHouse
+Categories=Office

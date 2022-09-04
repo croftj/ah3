@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+     "http://docbook.org/xml/4.5/docbookx.dtd" []>
+
+<book>
+    <bookinfo>
+        <title>Ah3 Invoicing and Inventory System for Repair Shops</title>
+    
+        <author>
+            <firstname>Joe</firstname>
+            <surname>Croft</surname>
+            <affiliation>
+                <!-- Valid email...spamblock/scramble if so desired -->
+                <address><email>joe [at] croftj.net</email></address>
+            </affiliation>
+        </author>
+    
+        <!-- All dates specified in ISO "YYYY-MM-DD" format -->
+        <pubdate>2007-09-08</pubdate>
+    
+        <!-- Most recent revision goes at the top; list in descending order -->
+        <revhistory>
+            <revision>
+                <revnumber>1.03</revnumber>
+                <date>2008-04-06</date>
+                <authorinitials>jec</authorinitials>
+                <revremark>Updated to reflect changes for the addition of the ah3xs application</revremark>
+            </revision>  
+            <revision>
+                <revnumber>1.02</revnumber>
+                <date>2007-10-25</date>
+    
+                <authorinitials>jec</authorinitials>
+                <revremark>Added Chapters on Data Backups and Customizing the Application</revremark>
+            </revision>
+            <revision>
+                <revnumber>1.01</revnumber>
+                <date>2007-09-13</date>
+    
+                <authorinitials>jec</authorinitials>
+                <revremark>Added installation chapter</revremark>
+            </revision>
+            <revision>
+                <revnumber>1.0</revnumber>
+                <date>2007-09-08</date>
+    
+                <authorinitials>jec</authorinitials>
+                <revremark>first official release</revremark>
+            </revision>
+        </revhistory>
+    </bookinfo>
+
+    <chapter>
+        <title>First Steps</title>
+  
+        <sect1 id="introduction">
+            <title>Introduction</title>
+            <para>
+                Ah3 is an application intended for service shops. It has been designed to work for any shop which has the business model where
+                the business has customers with one or more items to be repaired. Though it's origin is an Auto Repair Shop, it can just as easily
+                be customized to be used for a repair shop of Televisions, Home Appliances, Clocks and more.
+            </para>
+            <para>
+                Ah3 has the following capabilities and features to help with the repair shop:
+            </para>
+            <itemizedlist>
+                <listitem><para>Tracks customers and their vehicles (or whatever the item is)</para></listitem>
+                <listitem><para>Allows the definition on pre-defined jobs which can include parts and labor</para></listitem>
+                <listitem><para>Inventory and Vendor Tracking (Not fully functioning)</para></listitem>
+                <listitem><para>Customizable Invoices and Reports</para></listitem>
+            </itemizedlist>
+        </sect1>
+        <sect1 id="prerequisites">
+            <title>Prerequisites</title>
+            <para>
+                There are only a few additional packages required to install AH3 on an operational system. they are:               
+            </para>
+            <itemizedlist>
+                <listitem><para>Qt-4.2 or greater</para></listitem>
+                <listitem><para>Qt Postgres database drivers (QPSQL)</para></listitem>
+                <listitem><para>Postgres 8.0 or greater</para></listitem>
+            </itemizedlist>
+        </sect1>
+
+        <sect1 id="userinterface">
+            <title>User Interface Basics</title>
+            <para>
+                Ah3 has a reasonable consistent interface. Most dialogs are comprised of forms, tables and buttons. Information is stored as
+                records in the database. These records are displayed and selected through the use of tables. The tables can be sorted by their
+                contents and many of the tables can have their contents filtered.
+            </para>
+            <para>
+                Information in the database is manipulated through the forms. Each form will have one or more fields holding the data of the
+                selected record.
+            </para>
+        
+            <sect2 id="formbasics">
+                <title>Form Basics</title>
+                <para>
+                    Data for individual records is entered through forms. Collections of records (tables) are displayed and selected by clicking
+                    on the desired row in a table.
+                </para>
+                <para>
+                    New records of information is created by clicking the <emphasis>New</emphasis> button associated with the form. The
+                    form can then be filled out with the appropriate information then saved by clicking the <emphasis>Save</emphasis> button.
+                </para>
+                <para>
+                    If an error is made, pressing the key combination <emphasis>Ctrl-Z</emphasis> will undo the edits in the field. Moving to 
+                    a new record without saving the changes will discard any changes made on the form.
+                </para>
+                <para>
+                    A record can be deleted by clicking the <emphasis>Delete</emphasis> button. An appropriate confirmation dialog box will be
+                    presented to confirm that the record should really be deleted.
+                </para>
+                <sect3>
+                    <title>Data Form Shortcut Keys</title>
+                    <para>
+                        The following key strokes can be used for manipulating the form:
+                        <segmentedlist>
+                            <segtitle>
+                                Ctrl-N
+                            </segtitle>
+                            <seglistitem> 
+                                <seg>
+                                    Create a rew record
+                                </seg>
+                            </seglistitem>
+                        </segmentedlist>
+                        <segmentedlist>
+                            <segtitle>
+                                    Ctrl-S
+                            </segtitle>
+                            <seglistitem> 
+                               <seg>
+                                    Save the existing record
+                               </seg>
+                            </seglistitem>
+                        </segmentedlist>
+                        <segmentedlist>
+                            <segtitle>
+                                F10
+                            </segtitle>
+                            <seglistitem> 
+                                <seg>
+                                    Clear the record for <emphasis>Searching</emphasis>
+                                </seg>
+                            </seglistitem>
+                        </segmentedlist>
+                        <segmentedlist>
+                            <segtitle>
+                                F3
+                        </segtitle>
+                            <seglistitem> 
+                                <seg>
+                                    Search the database for the the information in the form.
+                                </seg>
+                            </seglistitem>
+                        </segmentedlist>
+                    </para>
+                </sect3>
+            </sect2>
+
+            <sect2 id="tablebasics">
+                <title>Table Basics</title>
+                <figure><title>Table Example</title>
+                    <screenshot>
+                        <graphic fileref="table_example.png" scale="33" format="PNG" />
+                    </screenshot>
+                </figure>
+                <para>
+                    Tables present multiple records of data from the database. At the top of the table are column headings. These headings can be
+                    clicked on, to sort the table on that column. Clicking on subsequent column headings will sort the table on the new column
+                    heading while keeping the ordering already set by the previous headings clicked. Clicking subsequent times on the column
+                    heading will reverse the order in which the records will be ordered for that column.
+                </para>
+                <para>
+                    Many tables have a form associated with them. Clicking on a record of information in the table will select that row and place
+                    its data in the form to be modified.
+                </para>
+                <para>
+                    Most of can be scrolled through using <emphasis>Alt-Up Arrow</emphasis> and the <emphasis>Alt-Down Arrow</emphasis>.
+                </para>
+                <sect3 id="tablefilters">
+                    <title>Filtering Table Contents</title>
+                    <para>
+                        Many of the tables have the ability to filter the records shown by their content. These tables will have a form associated
+                        with them as well as <emphasis>Search</emphasis> and <emphasis>Clear Form</emphasis> buttons. The
+                        <emphasis>Clear Form</emphasis> button clears the entries in the form so that search information can be entered. Fields can
+                        be only partially filled out, such as entering only the last name and not the first. The filtering is also case insensitive.
+                        In other words, <emphasis>jack</emphasis> will match <emphasis>Jack Davis</emphasis> as well as 
+                        <emphasis>Don jackSon</emphasis>.
+                    </para>
+                </sect3>
+            </sect2>
+        </sect1>
+
+        <sect1 id="invoking">
+            <title>Invoking</title>
+            <para>
+                Ah3 can be simply invoked by typing in <command>ah3</command> at the command line prompt assuming it resides in a directory
+                defined in the <emphasis>PATH</emphasis> environment variable.  Alternatively, if you type in <command>ah3</command> at
+                the command prompt, and get a message about <emphasis>command not found</emphasis>, the <emphasis>PATH</emphasis> is probably
+                not set correctly.  Another option is to type in <command>which ah3</command> at the command prompt, which will look in
+                the PATH for the <command>ah3</command> program.
+            </para>
+            <para>
+                Once the program starts a <emphasis>Login</emphasis> dialog will be presented. Once the user has entered
+                in the requested information, and the <emphasis>Connect</emphasis> button is pressed, the program will be
+                ready to use.
+            <figure><title>Login Dialog</title>
+                <screenshot>
+                    <graphic fileref="login.png" scale="33" format="PNG" />
+                </screenshot>
+            </figure>
+            </para>
+        </sect1>
+        
+        <sect1 id="twointerfaces">
+            <title>Tale of Two Interfaces</title>
+            <para>
+                Ah3 has two interfaces to choose from. The original <command>ah3</command> and a small screen version
+                <command>ah3xs</command>. The original is intended for screens with a resolution of 1024x768 or better. I recommend a
+                minimum resolution of 1280x1024 for the original interface. The small screen version can be used on screens with a minimum
+                resolution of 800x600. Running with 800x600 is not ideal, but hopefully I will figure out how to fit the forms on it.
+            </para>
+            <figure><title>Original Interface</title>
+                <screenshot>
+                    <graphic fileref="wo_current.png" scale="33" format="PNG" />
+                </screenshot>
+            </figure>
+            <para>
+                The original interface has the all of the information concerning the work-order on one tab. This and the inventory tab are
+                the reason for needing the larger screen size. The parts and labor are entered in on separate dialogs which are invoked by
+                clicking on the parts pane, or on the labor pane.
+            </para>
+            <figure><title>Small Screen Interface</title>
+                <screenshot>
+                    <graphic fileref="ah3xs.png" scale="33" format="PNG" />
+                </screenshot>
+            </figure>
+            <para>
+                The small screen has moved the parts and labor information onto separate tabs. In addition, the parts and labor entries are
+                modified directly on the tabs without invoking the dialogs used in the original interface.
+            </para>
+            <para>
+                At this time, the small screen version does not have the inventory and vendor functionality. These will be added in coming
+                releases.
+            </para>
+            <para>
+                This document is written for the original version. This should not pose too big of a problem for the users of the small
+                screen version in that the the forms presented to the user for manipulating the information will be similar (if not the
+                same) between the two. 
+            </para>
+        </sect1>
+        <sect1 id="mainwindow">
+           <title>Main Window</title>
+            <figure><title>Main Window on Startup</title>
+                <screenshot>
+                    <graphic fileref="wo_select.png" scale="33" format="PNG" />
+                </screenshot>
+            </figure>
+  
+            <para>
+                On startup, the application begins in the <emphasis>Work Order Select</emphasis> tab. There are several other tabs, each
+                allowing different information to be manipulated. The tabs in order on the main window are:
+            </para>
+  
+            <segmentedlist>
+              <segtitle>
+                    Current Work Order
+              </segtitle>
+              <seglistitem> 
+                 <seg>
+                    This tab is for entering parts and labor for a work order, as well as editing the information about
+                    the customer and their vehicle.
+                 </seg>
+              </seglistitem>
+            </segmentedlist>
+  
+            <segmentedlist>
+                <segtitle>
+                    Work Order Select
+                </segtitle>
+                <seglistitem> 
+                 <seg>
+                    This tab is for searching, selecting and deleting work orders from the system.
+                </seg>
+                </seglistitem>
+            </segmentedlist>
+  
+            <segmentedlist>
+                <segtitle>
+                    Predefined Jobs
+                </segtitle>
+                <seglistitem> 
+                    <seg>
+                        This tab is for creating, modifying and deleting Predefined Jobs.
+                    </seg>
+                </seglistitem>
+            </segmentedlist>
+           
+            <segmentedlist>
+                <segtitle>
+                    Inventory
+                </segtitle>
+                <seglistitem> 
+                    <seg>
+                        This tab is for managing inventory information. Parts may be created, edited and deleted as
+                        well as associated with vendors.
+                    </seg>
+                </seglistitem>
+            </segmentedlist>
+  
+            <segmentedlist>
+                <segtitle>
+                    Vendors
+                </segtitle>
+                <seglistitem> 
+                    <seg>
+                        This tab is for creating, modifying and deleting vendors.
+                    </seg>
+                </seglistitem>
+            </segmentedlist>
+  
+            <sect2>
+                <title>Current Work-Order</title>
+                <figure><title>Current Work-order Tab</title>
+                    <screenshot>
+                        <graphic fileref="wo_current.png" scale="33" format="PNG" align="center"/>
+                    </screenshot>
+                </figure>
+                <para>
+                    This tab facilitates adding and removing parts and labor from a work order as well as modifying the
+                    customer and vehicle information. Clicking the <emphasis>Save Work Order</emphasis> button will save 
+                    the fields modified for the work-order, customer or vehicle forms. It will not effect the
+                    Parts or Labor sections.
+                </para>
+                <para>
+                    The parts and labor for a work-order may be modified by double clicking their respective panes. By
+                    double clicking a pane, the appropriate dialog will be presented for manipulating the parts or
+                    labor associated with a work-order.
+                </para>
+                <para>
+                    Pressing the key combination <emphasis>Ctrl-P</emphasis> will preview the work-order as an invoice which can
+                    then be printed.
+                </para>
+            </sect2>
+            <sect2>
+                <title>Work Order Select</title>
+                <figure><title>Select Work-order Tab</title>
+                    <screenshot>
+                        <graphic fileref="wo_select.png" scale="33" format="PNG" align="center"/>
+                    </screenshot>
+                </figure>
+                <para>
+                    This tab is for searching, creating, printing, deleting and selecting work-orders to 
+                    manipulate, in the <emphasis>Current Work-Order</emphasis> tab. 
+                </para>
+                <para>
+                    The list of work-orders can be searched by clicking the <emphasis>Clear Form</emphasis>
+                    button, filling in the appropriate fields on the form such as the <emphasis>name</emphasis>
+                    or <emphasis>tag</emphasis> fields, then clicking the <emphasis>Search</emphasis> button. Once
+                    the <emphasis>Search</emphasis> button is clicked, only records satisfying the fields entered 
+                    will be shown. Partial information, such as only the last name, can be entered into the fields.
+                </para>
+                <para>
+                    Clicking the <emphasis>Clear Form</emphasis> button will once again, will show all of the 
+                    work-orders.
+                </para>
+                <para>
+                    By default, only opened work-orders are shown. Checking the <emphasis>Show All Work-Orders</emphasis>
+                    check box will show all of the work-orders, both opened and closed. Unchecking the check box will
+                    once again only show opened work-orders.
+                </para>
+                <para>
+                    Caveat: the <emphasis>Closed</emphasis> selection must be set to <emphasis>Yes</emphasis> or
+                    <emphasis>No</emphasis>. In other words, only work-orders which are closed, or work-orders which
+                    are still open, can be shown when searching.
+                </para>
+            </sect2>
+
+            <sect2>
+                <title>Predefined Jobs</title>
+                <figure><title>Predefined Jobs Tab</title>
+                    <screenshot>
+                        <graphic fileref="predefined_jobs.png" scale="33" format="PNG" align="center"/>
+                    </screenshot>
+                </figure>
+                <para>
+                    Predefined jobs are definitions of some specific sub-task: they involve some predetermined amount of labor, and
+                    often some specified parts. For example, a predefined job
+                    of <emphasis>Tune Up, 6 cylinders</emphasis> would be the labor for a <emphasis>Tune Up</emphasis> along with the parts
+                    (6 spark plugs). The number of hours for the labor can be defined, as well the kinds of parts and their quantities. Whether 
+                    or not the parts will be charged for separately can be set.
+                </para>
+                <para>
+                    Once a job is created, parts can be associated with the job by clicking the <emphasis>Add Part</emphasis>. This button behaves
+                    like the <emphasis>New</emphasis> button on other forms. The new part then should be modified and saved by clicking the
+                    <emphasis>Save</emphasis> button. The new part will be associated with the selected job.
+                </para>
+            </sect2>
+           
+            <sect2>
+                <title>Inventory</title>
+                <figure><title>Inventory Tab</title>
+                    <screenshot>
+                        <graphic fileref="inventory.png" scale="33" format="PNG" align="center"/>
+                    </screenshot>
+                </figure>
+                <para>
+                    The <emphasis>Inventory</emphasis> tab is for defining and tracking inventory. Parts can be created,
+                    modified and removed through this tab. In addition, the parts can be associated with vendors. Each
+                    vendor can be assigned their own part number for a part.
+                </para>
+            </sect2>
+           
+            <sect2>
+                <title>Vendors</title>
+                <figure><title>Vendors Tab</title>
+                    <screenshot>
+                        <graphic fileref="vendors.png" scale="33" format="PNG" align="center"/>
+                    </screenshot>
+                </figure>
+                <para>
+                  The <emphasis>Vendors</emphasis> tab is for creating, modifying and deleting vendors.
+                </para>
+            </sect2>
+        </sect1>
+
+    </chapter>
+    <chapter>
+        <title>Work-Orders</title>
+        <para>
+            Work-orders are the main purpose of this program. They have a definite flow in their life. They are first created,
+            then modified by adding parts and labor. Once the work is completed the work order is printed as an invoice, and then
+            closed. Once closed, work orders are considered complete and should not be modified.
+        </para>
+        <sect1>
+            <title>Creating New Work-Orders</title>
+            <para>
+                Work-orders are created on the <emphasis>Work-Order Select</emphasis> tab. Clicking the
+                <emphasis>New Work-Order</emphasis> button begins the process, by opening a dialog for selecting
+                the customer.
+            </para>
+            <figure><title>Customer Select Dialog</title>
+                <screenshot>
+                    <graphic fileref="customer_select.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                An existing customer can be chosen from the list, or a new customer can be created. Once a customer is
+                selected, a dialog for selecting the vehicle will be presented which will allow the user to select
+                an existing vehicle associated with the customer or create a new vehicle. The RETAIL
+                customer is special in that a vehicle will not be requested.
+            </para>
+            <figure><title>Vehicle Select Dialog</title>
+                <screenshot>
+                    <graphic fileref="vehicle_select.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                When the work-order is created, the <emphasis>Current Work-Order</emphasis> tab will
+                be activated.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Selecting Existing Work-Orders</title>
+            <para>
+                Existing work-orders can be easily opened by double clicking on the desired work-order
+                on the <emphasis>Work-Order Select</emphasis>. As in creating a work-order, the
+                <emphasis>Current Work-Order</emphasis> tab will be activated.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Adding and Editing Work-Order Parts</title>
+            <para>
+                Parts can be added to a work-order by double clicking on the <emphasis>Parts</emphasis> pane in the
+                <emphasis>Current Work Order</emphasis> tab. A dialog showing the parts, if any, associated with the work-order
+                will be displayed. New parts can be added, or existing parts entries can be modified.
+            </para>
+            <para>
+                Changes to the fields of a work-order are saved by clicking the <emphasis>Save Work-Order</emphasis>
+                button. The changes can be discarded by clicking the <emphasis>Cancel Changes</emphasis> button.
+            </para>
+            <para>
+                Caveat: Canceling Changes to a work-order DOES NOT revert changes to parts and labor. Once those
+                are saved on their respective dialogs, they can only be undone manually by entering in the correct information
+                through their respective dialogs.
+            </para>
+            <figure><title>Parts Entry Dialog</title>
+                <screenshot>
+                    <graphic fileref="parts_entry.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                Parts can be looked up in the inventory by clicking the <emphasis>Lookup Part</emphasis> button. This
+                will present a dialog from which a list of parts to search for can be made.
+            </para>
+            <figure><title>Parts Select Dialog</title>
+                <screenshot>
+                    <graphic fileref="parts_select.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                Caveat: only those parts with a vendor will presented when looking up parts.
+            </para>
+            <para>
+                Once a part is chosen, the quantity and cost can be adjusted. The total will be calculated
+                on the work-order automatically.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Adding and Editing Work-Order Labor</title>
+            <para>
+                The method for adding and manipulating labor is almost identical to that for the parts. Double clicking
+                the <emphasis>Labor</emphasis> pane will present a dialog for adding and editing the labor items on the work-order.
+            </para>
+            <figure><title>Labor Entry Dialog</title>
+                <screenshot>
+                    <graphic fileref="labor_entry.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                Predefined Jobs of labor and parts can be added by clicking the <emphasis>Lookup Labor</emphasis> button. This
+                will present a dialog showing any labor jobs already added to the work-order, and allow the user to add additional jobs.
+            </para>
+            <figure><title>Labor Select Dialog</title>
+                <screenshot>
+                    <graphic fileref="labor_select.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                The top frame of the dialog shows the available labor items which can be added to the work-order. The bottom left frame shows
+                the actual labor items which have been added to the work-order and the bottom right frame shows the parts associated with the
+                selected labor item. The quantities of the individual parts as well as the number of hours can be adjusted. Parts can also be
+                added and removed from the job as well. The parts will be associated with the labor and if the labor is removed from the work order,
+                all of the associated parts for that labor item will be removed as well.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Printing an Invoice</title>
+            <para>
+                Invoices for a work order can be printed through pressing the <emphasis>Ctrl-P</emphasis> combination or by clicking the
+                <emphasis>Preview Work-Order</emphasis> button from the <emphasis>Select Work-Order</emphasis> tab. In either situation a
+                dialog will be presented showing the work-order as an invoice.
+            </para>
+            <figure><title>Work-Order Preview Dialog</title>
+                <screenshot>
+                    <graphic fileref="wo_preview.png" scale="33" format="PNG" align="center"/>
+                </screenshot>
+            </figure>
+            <para>
+                The invoice can then be printed from this dialog by clicking the <emphasis>Print</emphasis> button.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Closing a Work-Order</title>
+            <para>
+                Work-orders can be closed either through the file menu, or by clicking the <emphasis>Close Work-Order</emphasis> button
+                on the <emphasis>Select Work-Order</emphasis> tab. A confirmation dialog will be presented.  If it is confirmed, the
+                work-order will have its closed field set to yes.
+            </para>
+            <para>
+                Once a work-order is closed, a confirmation dialog will be presented whenever any changes are to be made to the work order.
+            </para>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Data Security and Disaster Recovery</title>
+        <para>
+            With any program or computer, data loss is possible. It is mandatory that the data be backed up on a regular basis. This
+            ensures that when there is a disaster; the computer breaks, gets stolen or worse, the data is not lost forever.
+            Notice the use of when and not if! It is inevitable that there will be a failure in the hardware at some point. In this
+            respect, computers are just like cars.
+        </para>
+        <sect1>
+            <title>Data Backups</title>
+            <para>
+                To help with this, there is a script called <command>/opt/bin/backup.sh</command>. This script dumps and encrypts the
+                data stored by the program, the configuration of the program and other useful items onto a USB flash drive. The purpose
+                of encrypting the data is to ensure the customer's information and the business information cannot be easily discovered
+                if the USB flash drive is lost. A restoration script is also placed on the USB flash drive to aid in recovering
+                the data when the time arises.
+            </para>
+            <para>
+                The script should be viewed and modified to suit the individual needs of the business. The password to recover the data
+                is script (HUH??) as well as the name of the flash drive. The instructions for restoration, and the restoration script, can be
+                modified as well. They are both built by the backup script. Both of these are basic with many assumptions on the machines
+                configuration. These cannot be guessed at by the author of the program before hand.
+            </para>
+            <para>
+                When to run the backup program is a business decision. It can either be run through <command>cron</command> or configured
+                to run when the computer is shut down. The restoration script will configure the system to do the backups when the machine
+                is shut down. This is another portion of the backup script you may want to change.
+            </para>
+            <para>
+                It is envisioned that the user will have two USB flash drives. This will allow one of the drives to be kept off premises
+                or in the possession of the shop owner such as on their key ring. This too is a mandatory practice to ensure worst case
+                scenarios such as the fire or theft do not harm the business.
+            </para>
+            <para>
+                The size of the drives depends on the amount of data. A 128MB flash drive should work for all but the very
+                largest national chains. A business with 1000 customers and 3000+ work-orders takes under 2 MB of space. Before you by a
+                2 MB drive, keep in mind that in the end, 2 copies of the data are saved on the flash drive.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Data Restoration</title>
+            <para>
+                The provided backup script creates a restoration script and instructions for recovering the data from the flash drive.
+                There are two copies of the data. One of them is from the previous back up on the drive and is in a directory named
+                <filename>save</filename>, the other is in the main directory.
+            </para>
+            <para>
+                The name of the restoration script is <command>restore.sh</command>. This script is built by the backup script and will ask
+                for the password used to encrypt the program data. As provided, it will delete any data in the database, restore the data
+                in the database with that on the flash drive, and modify the system to start the postgres database and perform the backup
+                when the computer is shut down.
+            </para>
+            <para>
+                The instructions can be found in the file <filename>README.TXT</filename>. This should have the basic information on
+                recovering the data and reconfiguring the system. They are not finely detailed, because there is no guessing the full
+                configuration of the system.
+            </para>
+            <para>
+                Caveat: the recovery of the user configuration as well as any forms and reports is left to the user. The data is on the
+                flash, but it is the user's responsibility to put it back.
+            </para>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Making Ah3 Your Own</title>
+        <para>
+            The real strength of Ah3 lies in its ability to be customized. The obvious things such as your business name and address,
+            labor rate, sales tax, etc., can be customized through the configuration dialogs. Beyond that, the forms and tables can be
+            customized as well. Each form can have the layout of the fields changed as well as the text for labels of the fields. Each
+            of the tables can have the order of the fields and the text for their labels altered as well. Beyond this, some changes
+            can be made to the database tables themselves with Fields added and removed from the tables. Even the tables themselves can be
+            renamed.
+        </para>
+        <sect1>
+            <title>Configuration Dialogs</title>
+            <para>
+                Out of the box, Ah3 has two groups of items which can be configured, <emphasis>Rates</emphasis> and
+                <emphasis>Invoice Settings</emphasis>. These can be accessed through the <emphasis>Edit</emphasis> menu on the menu bar.
+            </para>
+            <para>
+                On selecting either of these two items, an appropriate dialog box will be presented. The values can be changed then
+               either saved by clicking the <emphasis>Save</emphasis> button or the changes can be discarded by clicking the
+               <emphasis>Cancel</emphasis> button.
+            </para>
+            <para>
+                The <emphasis>Rates</emphasis> configuration group holds items which are either used as defaults on the forms for new
+                records or they hold values for configuring the pull down lists such as <emphasis>Units</emphasis> or
+                <emphasis>Makes</emphasis> of vehicles.
+            </para>
+            <para>
+                The <emphasis>Invoice Settings</emphasis> configuration groups holds business information which will be placed in the invoice.
+            </para>
+            <para>
+                Each of these dialogs provide the most current help available for what each item represents so they won't be detailed here.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Data Forms and Tables</title>
+            <para>
+                The main page, and most of the elements, have one or more forms and tables of data for them. Each of these can be
+                tailored to the end user's needs through the XML file <filename>/opt/ah3/default_forms.xml</filename>. Every form or
+                table presented in the Ah3 application is defined in the <filename>/opt/ah3/default_forms.xml</filename> file. To learn the
+                name of the actual element defining the form or table, click in the area of the form or table then press
+                <emphasis>Shift-F1</emphasis>. This will present a short blurb about the purpose of the form or table and the name it uses
+                in the XML file.
+            </para>
+            <para>
+                Caveat: disabled tables, those with no data, do not show their Blurb. As a rule, most tables have an associated form and
+                their name can be derived by substituting <emphasis>_form</emphasis> with <emphasis>_table</emphasis>.
+            </para>  
+            <para>
+                For details on the actual format of the file and the choices of elements, please refer the web page
+                <ulink url="http://www.linuxlots.com/~qcj/pages.html"/><citetitle>http://www.linuxlots.com/~qcj/pages.html</citetitle>.
+                Ultimately, the information on that document will be incorporated into this section.
+            </para>
+        </sect1>
+        <sect1>
+            <title>Invoices and Reports</title>
+            <para>
+                <emphasis>
+                    This section is not complete. It will be expanded, as time permits. At this time, the best bet is to check out the examples
+                    provided with the distribution.
+                </emphasis>
+            </para>
+            <para>
+                Both the invoices and reports use the same mechanism for their generation. In simple terms they are xml files residing in
+                the directory <filename>/opt/ah3/reports</filename>. The invoice is just a report this has the defined name of
+                <emphasis>Invoice</emphasis>. Ah3 will treat this report special in that when the user requests to preview or print the
+                invoice this is the report which will be used. Keep in mind that the name of the report is not the file name but the name
+                defined within the report definition. From no on through this document, only the term <emphasis>report</emphasis> will be used.
+                Its use can be for either a report or the invoice.
+            </para>
+            <para>
+                In the following examples, to overcome formatting issues, there is a space embedded in the <literal>]]&lt;</literal>
+                sequences. If you want to copy and paste example code, you would do better going to the source
+                <filename>invoice.xml</filename> than in this document.
+            </para>
+            <para>
+                The biggest difference between an invoice and a report, is that an invoice only can only have one input defined and it
+                must be named <emphasis>invoice</emphasis>. This input will be provided by Ah3.
+            </para>
+            <para>
+                Other reports can have multiple inputs and they will be presented with a query dialog to get the required information from
+                the user before the report is generated.
+            </para>
+            <para>
+                Each report file is comprised of different blocks. One or more of each block can be used depending on the report being generated.
+            </para>
+            <sect2>
+                <title>Input Blocks</title>
+                <para>
+                    Input blocks are single XML elements using the <emphasis>input</emphasis> tags. These elements define the inputs which
+                    will need to be provided by either the program or the user. Each <emphasis>input</emphasis> item has a name, a label,
+                    a default value and a type attribute. The name attribute will be used to reference the item from the other sections of
+                    the report. The label is the text to present to the user when querying for a value.
+                </para>
+                <para>
+                    Default values are provided with the attribute <emphasis>default</emphasis>. These can be pretty much any string, but
+                    the type will determine the appropriate values as well as any specially interpreted values.
+                </para>
+                <para>
+                    For example, in the supplied invoice.xml file, only one input is defined:
+                    <example>
+                        <title>
+                            Input Element
+                        </title>
+                        <programlisting>
+                        <![CDATA[
+<input name="invoice" label="Invoice #" type="integer" />;
+                        ]]>
+                        </programlisting>
+                    </example>
+                    The type defines the expected value of the item. It can be one of the following values:
+                    <segmentedlist>
+                        <segtitle>lineedit</segtitle>
+                        <seglistitem>
+                            <seg>
+                                Simple text with no interpretation.
+                            </seg>
+                        </seglistitem>
+                    </segmentedlist>
+                    <segmentedlist>
+                        <segtitle>password</segtitle>
+                        <seglistitem>
+                            <seg>
+                                Like the <emphasis>lineedit</emphasis> type except the entered text will be masked.
+                            </seg>
+                    </seglistitem>
+                    </segmentedlist>
+                    <segmentedlist>
+                        <segtitle>double</segtitle>
+                        <seglistitem>
+                            <seg>
+                                A floating point number. A <emphasis>min</emphasis> attribute and a <emphasis>max</emphasis> attribute
+                            can be provided to bound the acceptable range
+                            </seg>
+                        </seglistitem>
+                    </segmentedlist>
+                    <segmentedlist>
+                        <segtitle>integer</segtitle>
+                            <seglistitem>
+                            <seg>
+                                Just like the <emphasis>double</emphasis> type except only integer values will be accepted.
+                        </seg>
+                        </seglistitem>
+                    </segmentedlist>
+                    <segmentedlist>
+                        <segtitle>yesno</segtitle>
+                        <seglistitem>
+                        <seg>
+                                Provides a pull-down asking for Yes or No. It will return a character of 'Y' or 'N' when referenced in the report.
+                            </seg>
+                        </seglistitem>
+                    </segmentedlist>
+                    <segmentedlist>
+                        <segtitle>truefalse</segtitle>
+                        <seglistitem>
+                            <seg>
+                                Like the <emphasis>yesno</emphasis> type, this provides a pull-down asking for Yes or No. It will return a value of
+                                0 or 1 when referenced in the report.
+                            </seg>
+                        </seglistitem>
+                    </segmentedlist>
+                    <segmentedlist>
+                        <segtitle>date</segtitle>
+                        <seglistitem>
+                            <seg>
+                                Provides a specialized edit field for dates. The defaults of <emphasis>today</emphasis> and
+                                <emphasis>tomorrow</emphasis> and <emphasis>yesterday</emphasis> can be provided as well as any valid date.
+                            </seg>
+                    </seglistitem>
+                    </segmentedlist>
+                </para>
+            </sect2>
+            <sect2>
+                <title>Data Sources</title>
+                <para>
+                    Data Source blocks are defined using <emphasis>data_source</emphasis> elements. Each data source must have a unique name
+                    defined using the attribute <emphasis>name</emphasis>. The body of the element should be a CDTATA text element
+                    comprising of the sql select statement to use for selecting the data for the source.
+                </para>
+                <example>
+                    <title>
+                        Data Source Element
+                    </title>
+                    <programlisting>
+                        <![CDATA[
+   <data_source name="customer">
+      <![CDATA[
+      select name, addr, city, state, zip, 
+             home_pn, work_pn 
+         from customers where ident =
+            (select customer from workorders where ident = ::input:invoice:)
+      ] ]>
+   </data_source>
+                        ]]>
+                    </programlisting>
+                </example>
+                <para>
+                    Note that in input source <emphasis>invoice</emphasis> was referenced from within the SQL statement.
+                </para>
+            </sect2>
+            <sect2>
+                <title>Report Sections</title>
+                <para>
+                    The remainder of the report is defined by one or more sections using a <emphasis>section</emphasis> element or
+                    a <emphasis>banner</emphasis> element. Each section will define what data should be presented in the report.
+                    Banner elements define graphics to be displayed on a report. Banner elements have no body as all of their
+                    information is in the attribute fields. 
+                </para>
+                <para>
+                    Each section can generate a block of text, data from the database or an image. In the former two, data can be
+                    specified from either an input argument, fields from the data-sources or a configuration parameter. Images are
+                    always hard coded at this point using the path name to the image file on the disk.
+                </para>
+                <para>
+                    Banner elements place an image on the page with no wrapping of text around them. They are equivalent to a
+                    single column section. 
+                    <example>
+                        <title>
+                            Banner Element Containing an Image.
+                        </title>
+                        <programlisting>
+                            <![CDATA[
+                            <banner width="500" height="111" img="file:///path/to/image.gif" />
+                            ]]>
+                        </programlisting>
+                    </example>
+                    In the example, the file <filename>/path/to/image.gif</filename> will be displayed with a height of 500 pixels
+                    and a width of 111 pixels.
+                </para>
+                <para>
+                    Caveat: it will be rare when a report with a graphic looks exactly like what gets printed on a piece of paper. It
+                    will probably serve the user the best to set the height and width of the banner image to fit the piece of paper
+                    and then let the preview look like it will.
+                </para>
+            </sect2>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Building and Installation</title>
+        <para>
+            The installation steps in this document are generic and for all versions of Ah3. When the file names
+            <filename>ah3-x.tar.gz</filename> and <filename>ah3-x.rpm</filename> are used, it is intended that the
+            <emphasis>x</emphasis> is replaced with the appropriate version and architecture.
+        </para>
+        <sect1>
+            <title>Building and Installing from Source</title>
+            <para>
+                Building Ah3 is pretty straight forward. It follows the pattern as most typical Qt applications. It does depend on
+                having the development headers and libraries for Qt installed. 
+            </para>
+            <para>
+                The following steps will build the original Ah3 executable <command>ah3</command>.
+                <orderedlist numeration="lowerroman">
+                    <listitem><para>Unpack the tar file using <command>tar -xzf ah3-x.tar.gz</command></para></listitem>
+                    <listitem><para>Change directory using <command>cd ah3-x</command></para></listitem>
+                    <listitem><para>Execute <command>qmake ah3.pro</command></para></listitem>
+                    <listitem><para>Execute <command>make</command></para></listitem>
+                </orderedlist>
+            </para>
+            <para>
+                Use the following steps to build the small screen executable of Ah3 <command>ah3xs</command>.
+                <orderedlist numeration="lowerroman">
+                    <listitem><para>Unpack the tar file using <command>tar -xzf ah3-x.tar.gz</command></para></listitem>
+                    <listitem><para>Change directory using <command>cd ah3-x</command></para></listitem>
+                    <listitem><para>Execute <command>qmake ah3xs.pro</command></para></listitem>
+                    <listitem><para>Execute <command>make clean</command></para></listitem>
+                    <listitem><para>Execute <command>make</command></para></listitem>
+                </orderedlist>
+            </para>
+            <para>
+                It is very important the execute the <command>make clean</command> command when switching between building the
+                two applications.
+            </para>            
+            <para>            
+                To install the application and have it work requires these additional steps executed as the root user:
+                <orderedlist numeration="lowerroman">
+                    <listitem><para>Execute <command>mkdir -p /opt/ah3/reports</command></para></listitem>
+                    <listitem><para>Execute <command>mkdir -p /opt/ah3/database</command></para></listitem>
+                    <listitem><para>Execute <command>cp ah3.xml /opt/ah3/default_forms.xml</command></para></listitem>
+                    <listitem><para>Execute <command>cp *sql /opt/ah3/database</command></para></listitem>
+                    <listitem><para>Execute <command>ln -s /opt/ah3 /opt/ah3xs</command></para></listitem>
+                </orderedlist>
+            </para>
+        </sect1>
+        <sect1>
+            <title>Installing and Executing the Binary Packages</title>
+            <para>
+                As well as RPM and Debian packages, executable installations for Ah3 are now provided for both Linux and Windows. The installers
+                look pretty much the same for either platform. Just type in the command name for the package or double click on it. Windows will
+                probably complain about not recognizing the source of the package. Just follow the wizard. Choose an appropriate directory for
+                installing the package into. The entire package will be placed under this directory.
+            </para>
+            <para>
+                A number of directories will be placed in the directory chosen for the installation. One of these is the
+                <filename>bin</filename> directory. It holds the actual program files and in the case of Linux, scripts as well.
+            </para>
+            <sect2>
+                <title>Windows</title>
+                <para>
+                    Entries for the program will be added to the Start Menu. These will include an uninstall script as well.
+                </para>
+            </sect2>
+            <sect2>
+                <title>Linux</title>
+                <para>
+                    The executables will be placed in the <filename>bin</filename> directory of the directory you chose to install
+                    the package in. Be sure to run the script versions of the program, <command>Ah3</command> or <command>Ah3xs</command>
+                    (notice the capitalized first letter). These scripts will start up the application so the shared libraries needed can
+                    be found.
+                </para>
+            </sect2>
+        </sect1>
+        <sect1>
+            <title>Creating the Database</title>
+            <sect2>
+                <title>By Script (Linux only)</title>
+                <para>
+                    The <command>create_db.sh</command> script has been supplied with Ah3. It will ensure postgres is started, that it will
+                    accept connections from the network, it will use trust authentication for those connections from localhost and it will
+                    create the ah3 database user. After this, it will create the ah3 database under the ownership of ah3 and install the
+                    schema and a minimal data set required to run the <command>ah3</command> program.
+                </para>
+                <para>
+                    This script is simple to read. It does have security implications for your computer. If you are only running
+                    <command>ah3</command> on the computer and its database, it should be fine. Otherwise, you should check it and make
+                    sure it is not doing anything to your disliking.
+                </para>
+                <para>
+                    This script is installed via the ah3 rpm file, can be found as <filename>/opt/ah3/create_db.sh</filename>, and
+                    should be executed as the root user.
+                </para>
+            </sect2>
+            <sect2>
+                <title>By Hand Using the Command Line</title>
+                <para>
+                    This procedure has a couple of assumptions. First, that the postgres database is installed and the server daemon
+                    is started. Secondly, that the installer has the appropriate permissions to create postgres users and databases. On SuSE
+                    distributions, performing these operations as root will satisfy both of these assumptions.
+                </para>
+                <para>
+                    Performing the following steps will create the database for Ah3. Select an appropriate username to use on the command lines
+                    where &lt;user&gt; is specified.
+                    <orderedlist numeration="lowerroman">
+                        <listitem><para>Execute <command>createuser --createdb --no-superuser --no-createrole &lt;user&gt;</command></para></listitem>
+                        <listitem><para>Execute <command>createdb --owner &lt;user&gt; ah3</command></para></listitem>
+                        <listitem><para>Execute <command>psql --username &lt;user&gt; &lt; /opt/ah3/database/ah3.psql</command></para></listitem>
+                    </orderedlist>
+                </para>
+            </sect2>
+            <sect2>
+                <title>By Hand Using PgAdmin</title>
+                <para>
+                    Using the <command>pgadmin</command> utility is probably the easiest way to manually configure the database. The
+                    same program and procedure can be used from both Windows and Linux. Before you begin, you must have the rights to
+                    create User Roles and Databases.
+                </para>
+                <para>
+                    Begin by executing the <command>pgadmin</command> program. Once it starts up you will need to connect to the local
+                    database (assuming that your database will be running on the local machine). Once you have connected to the
+                    database, perform the following steps.
+                    <orderedlist numeration="lowerroman">
+                        <listitem>
+                            <para>
+                                Create the user which will be used to access the database. The user <emphasis>ah3</emphasis> is
+                                used in this document.
+                                <figure><title>Create New User</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_user.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Create the database where the Ah3 data will be stored. Just like the user, the database will be named
+                                <emphasis>ah3</emphasis>.
+                                <figure><title>Create New Database</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_newdb1.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                            <para>
+                                Be sure to set the owner of the database to the owner you created in step 1.
+                                <figure><title>Set Owner of the Database</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_newdb3.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Open a Query Tool dialog from the Tools menu.
+                                <figure><title>Open Query Tool Dialog</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_query1.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                From the <emphasis>File</emphasis> menu, Select the <emphasis>Open</emphasis> item. Then
+                                browse to the <filename>database</filename> directory of the installed Ah3 package. Select the file
+                                <filename>ah3.sql</filename> file.
+                                <figure><title>Open Query Tool Dialog</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_query2.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Execute the file 
+                                <figure><title>Execute the File</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_query3.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Confirm there were no errors.
+                                <figure><title>Confirm no errors</title>
+                                    <screenshot>
+                                        <graphic fileref="pgadmin_query4.png" scale="20" format="PNG" align="center"/>
+                                    </screenshot>
+                                </figure>
+                            </para>
+                        </listitem>
+                    </orderedlist>
+                </para>
+                <para>
+                    At this point the database is configured and should be ready to go. You can either start by adding
+                    your own customer information or load the example database to try out ah3 and see what it's like.
+                </para>
+            </sect2>
+            <sect2>
+                <title>Installing the Example Customer Data</title>
+                <para>
+                    An example database providing a large set of customer information including vehicles and work-orders is supplied with
+                    both the rpm and tar file distributions of Ah3. This data can be used to try out the program, then the database can
+                    be dropped and recreated to use for real. Execute the command
+                    <command>psql --username &lt;user&gt; &lt; /opt/ah3/database/exeample_db.sql</command>.  (exeample_db.sql ????)
+                    Once it completes, you should have a database with several hundred customers.
+                </para>
+                <para>
+                    For those strange people out there who like to glean personal information from databases such as this, forget it.
+                    It just looks real. The data has been sanitized in that it has bogus names and addresses, phone numbers and
+                    vehicle information.
+                </para>
+            </sect2>
+        </sect1>
+    </chapter>
+</book>

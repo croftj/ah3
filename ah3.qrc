@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons" >
+        <file>ah3-256.png</file>
+        <file>ah3-48.xpm</file>
+    </qresource>
+</RCC>

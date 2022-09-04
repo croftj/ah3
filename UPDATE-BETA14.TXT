@@ -1,0 +1,13 @@
+IMPORTANT!
+
+Release Beta 14 has introduced a small but important change to the database
+schema!
+
+If you have an existing installation that you are updating to Beta14 or beyond, 
+you must run the following command:
+
+   psql ah3 <ah3beta14.sql
+
+This assumes your database is named 'ah3'.
+
+

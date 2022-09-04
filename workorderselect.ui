@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WorkorderSelect</class>
+ <widget class="QFrame" name="WorkorderSelect">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>520</width>
+    <height>460</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::StyledPanel</enum>
+  </property>
+  <property name="frameShadow">
+   <enum>QFrame::Raised</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QcjDataFrame" name="dataFrame">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string/>
+     </property>
+     <property name="xml_definition" stdset="0">
+      <string>form_definition</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QFrame" name="frame_2">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="margin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QcjDataForm" name="dataForm">
+           <property name="toolTip">
+            <string/>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;html&gt;This is a form for presenting filter critera to aid in finding work orders. It's xml form name is &lt;em&gt;woselect_form&lt;/em&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="xml_definition" stdset="0">
+            <string>woselect_form</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="margin">
+             <number>9</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="newBtn">
+              <property name="text">
+               <string>New Work Order</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="retailBtn">
+              <property name="text">
+               <string>New Retail</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="previewBtn">
+              <property name="text">
+               <string>Preview Work Order</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="closeBtn">
+              <property name="text">
+               <string>Close Work Order</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="deleteBtn">
+              <property name="text">
+               <string>Delete Work Order</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="searchBtn">
+              <property name="text">
+               <string>Search</string>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="clearBtn">
+              <property name="whatsThis">
+               <string>&lt;html&gt;Clicking this button clears the form&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Clear Form</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="showAllBtn">
+              <property name="toolTip">
+               <string>&lt;html&gt;Check this box to show closed work orders as well as open work orders</string>
+              </property>
+              <property name="text">
+               <string>Show All Work Orders</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Maximum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QcjDataTable" name="dataTable">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;html&gt;This is a table for selecting a work order. It's xml form name is &lt;em&gt;woselect_table&lt;/em&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="xml_definition" stdset="0">
+         <string>woselect_table</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QcjDataForm</class>
+   <extends>QFrame</extends>
+   <header>QcjData/QcjDataForm.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QcjDataFrame</class>
+   <extends>QFrame</extends>
+   <header>QcjData/QcjDataFrame.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QcjDataTable</class>
+   <extends>QFrame</extends>
+   <header>QcjData/QcjDataTable.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,196 @@
+<report name="Annual Sales Total" bgcolor="#f0f0ff">
+   <input name="start" label="Start Date" type="monthbeg" />
+   <input name="end" label="End Date" type="monthend" />
+<!--
+   <input name="start" label="Start Year" type="integer" min="2001" max="9999" />
+   <input name="end" label="End Year" type="integer" min="2001" max="9999" />
+-->
+   <data_source name="years">
+      <![CDATA[
+         select distinct to_char(workorders.date_out, 'YYYY') as year 
+            from workorders 
+           where workorders.closed = 'Y' and 
+           workorders.ident in (select ident from workorders where date_out >= ::input:start: and date_out < ::input:end:) order by year
+      ]]>
+   </data_source>
+
+   <data_source name="invoice_totals">
+      <![CDATA[
+      select sum(wo_parts_total.total) as parts, 
+             sum(wo_taxparts_total.total) as taxable_parts, 
+             sum(wo_labor_total.total) as labor, 
+             sum(workorders.tax) as tax, 
+             sum(hazmat) as hazmat,
+             sum(wo_parts_total.total)+sum(wo_labor_total.total)+sum(workorders.tax)+sum(hazmat) as total
+         from workorders, wo_parts_total, wo_taxparts_total, wo_labor_total 
+         where wo_parts_total.ident = workorders.ident and 
+         wo_taxparts_total.ident = workorders.ident and 
+         wo_labor_total.ident = workorders.ident and 
+         workorders.date_out >= ::input:start: and workorders.date_out < ::input:end:
+      ]]>
+   </data_source>
+
+   <data_source name="month_totals">
+      <![CDATA[
+      select sum(wo_parts_total.total) as parts, 
+             sum(wo_taxparts_total.total) as taxable_parts, 
+             sum(wo_labor_total.total) as labor, 
+             sum(workorders.tax) as tax, 
+             sum(hazmat) as hazmat,
+             sum(wo_parts_total.total)+sum(wo_labor_total.total)+sum(workorders.tax)+sum(hazmat) as total,
+             to_char(workorders.date_out, 'MM/YYYY') as month
+         from workorders, wo_parts_total, wo_taxparts_total, wo_labor_total 
+         where wo_parts_total.ident = workorders.ident and 
+         wo_taxparts_total.ident = workorders.ident and 
+         wo_labor_total.ident = workorders.ident and 
+         workorders.ident in 
+            (select ident from workorders where date_out >= to_timestamp('1/1/' || ::field:years.year:, 'MM/DD/YYYY') and
+                                                date_out <= to_timestamp('12/31/' || ::field:years.year:, 'MM/DD/YYYY'))
+         group by month order by month
+      ]]>
+   </data_source>
+   <data_source name="year_totals">
+      <![CDATA[
+      select sum(wo_parts_total.total) as parts, 
+             sum(wo_taxparts_total.total) as taxable_parts, 
+             sum(wo_labor_total.total) as labor,
+             sum(workorders.tax) as tax, 
+             sum(hazmat) as hazmat,
+             sum(wo_parts_total.total)+sum(wo_labor_total.total)+sum(workorders.tax)+sum(hazmat) as total
+         from workorders, wo_parts_total, wo_taxparts_total, wo_labor_total 
+         where wo_parts_total.ident = workorders.ident and 
+         wo_taxparts_total.ident = workorders.ident and 
+         wo_labor_total.ident = workorders.ident and 
+         workorders.ident in 
+            (select ident from workorders where date_out >= to_timestamp('1/1/' || ::field:years.year:, 'MM/DD/YYYY') and
+                                                date_out <= to_timestamp('12/31/' || ::field:years.year:, 'MM/DD/YYYY'))
+      ]]>
+   </data_source>
+
+   <data_source name="minmax">
+      <![CDATA[
+      select distinct to_char(min(workorders.date_out), 'MM/YYYY') as min_month, to_char(max(workorders.date_out), 'MM/YYYY') as max_month
+         from workorders
+         where closed = 'Y' and date_out >= ::input:start: and date_out < ::input:end:
+      ]]>
+   </data_source>
+
+   <section width="100%" where="page top">
+      <body bgcolor="#e0e0ff" width="100%" data_source="minmax" mode="single">
+         <field align="center">
+            <header align="center" size="7" color="blue">
+               Annual Sales Totals
+            </header>
+            <data align="center" size="5" color="black">
+               <br />
+               From: ::field:string:min_month:   -   To: ::field:string:max_month:
+<!--
+               <align dir="left"><font size="3">From: ::field:string:min_year:</font></align>
+               <align dir="right"><font size="3">To: ::field:string:max_year:</font></align>
+-->
+            </data>
+         </field>
+      </body>
+   </section>
+
+<!--
+   <section mode="multiple" border="1" color="#000080" width="100%" data_source="years">
+-->
+   <section mode="multiple" color="#000080" width="100%" data_source="years">
+      <header colspan="7" bgcolor="#d0d0d0" bold="yes" size="5">
+         Sales for Year: ::field:string:years.year:
+      </header>
+      <body mode="multiple" width="100%" data_source="month_totals">
+         <field width="25%">
+            <header align="right" font="helvetica" size="4">Month</header>
+            <data align="right">::field:string:month:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Parts</header>
+            <data align="right">::field:money:parts:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Taxable Parts</header>
+            <data align="right">::field:money:taxable_parts:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Labor</header>
+            <data align="right">::field:money:labor:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Sales Tax</header>
+            <data align="right">::field:money:tax:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Haz. Mat.</header>
+            <data align="right">::field:money:hazmat:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Total</header>
+            <data align="right">::field:money:total:</data>
+         </field>
+      </body>
+      <footer mode="single" data_source="year_totals">
+         <field width="25%" bold="yes">
+            <header align="right" font="helvetica" size="4"></header>
+            <data align="right">Annual Totals:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Parts</header>
+            <data align="right">::field:money:parts:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Taxable Parts</header>
+            <data align="right">::field:money:taxable_parts:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Labor</header>
+            <data align="right">::field:money:labor:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Sales Tax</header>
+            <data align="right">::field:money:tax:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Haz. Mat.</header>
+            <data align="right">::field:money:hazmat:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Total</header>
+            <data align="right">::field:money:total:</data>
+         </field>
+      </footer>
+   </section>
+   <section mode="single" color="#000080" width="100%" data_source="invoice_totals">
+      <body width="100%" mode="single">
+         <field width="25%" bold="yes">
+            <header align="right" font="helvetica" size="4"></header>
+            <data align="right">Grand Totals</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Parts</header>
+            <data align="right">::field:money:parts:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Taxable Parts</header>
+            <data align="right">::field:money:taxable_parts:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Labor</header>
+            <data align="right">::field:money:labor:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Sales Tax</header>
+            <data align="right">::field:money:tax:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Haz. Mat.</header>
+            <data align="right">::field:money:hazmat:</data>
+         </field>
+         <field width="15%">
+            <header align="right" font="helvetica" size="4">Total</header>
+            <data align="right">::field:money:total:</data>
+         </field>
+      </body>
+   </section>
+</report>

@@ -1,0 +1,319 @@
+<report name="Invoice" bgcolor="#ffffff">
+   <input name="invoice" label="Invoice #" type="integer" />
+
+   <!--
+      This data source provieds the invoice specific information
+      such as the billing & shipping information
+   -->
+   <data_source name="customer">
+      <![CDATA[
+      select name, addr, city, state, zip, 
+             home_pn, work_pn 
+         from customers where ident = (select customer from workorders where ident = ::input:invoice:)
+      ]]>
+   </data_source>
+
+   <data_source name="vehicle">
+      <![CDATA[
+      select make, model, model_yr, tag, vin, color
+         from vehicles where ident = (select vehicle from workorders where ident = ::input:invoice:)
+      ]]>
+   </data_source>
+
+   <!--
+      This data source gives the details of the pieces ordered
+   -->
+   <data_source name="parts">
+      <![CDATA[
+      select pn, descr, qty, measure, cost, total
+         from wo_parts_v where workorder = ::input:invoice: and qty > 0
+      ]]>
+   </data_source>
+
+   <data_source name="labor">
+      <![CDATA[
+      select descr, hours, cost
+         from wo_labor_v where workorder = ::input:invoice: and descr != '--DO_NOT_DELETE--'
+      ]]>
+   </data_source>
+   <data_source name="invoice">
+      <![CDATA[
+      select ident, date_out, parts, labor, hazmat, tax, total, recomend
+         from workorders where ident = ::input:invoice:
+      ]]>
+   </data_source>
+   <data_source name="parts_total">
+      <![CDATA[
+      select total from wo_parts_total where ident = ::input:invoice:
+      ]]>
+   </data_source>
+   <data_source name="labor_total">
+      <![CDATA[
+      select total from wo_labor_total where ident = ::input:invoice:
+      ]]>
+   </data_source>
+
+   <!--
+      This section displays the buisness information
+   -->
+   <section mode="single" data_source="customer" width="100%">
+      <body>
+         <field align="center">
+            <data align="center" size="4" color="blue">
+               <![CDATA[
+               <font size="5"><b>::config:string:bizname:</b></font><br>
+               ::config:string:bizaddr1:<br>
+               ::config:string:bizaddr2: 
+               ::config:string:bizcity:,  ::config:string:bizstate:,  ::config:string:bizzip:<br>
+               ::config:string:bizphone:<br>
+               ::config:string:bizfax:<br>
+               ]]>
+            </data>
+         </field>
+      </body>
+   </section>
+
+   <!--
+      This section displays the invoice number and date
+   -->
+   <section width="100%">
+      <body mode="single" data_source="invoice">
+         <field align="left">
+            <data align="left" size="3" color="green">
+               <![CDATA[
+               Invoice:<b>::field:string:ident:</b>
+               ]]>
+            </data>
+         </field>
+         <field align="right">
+            <data align="right" size="3" color="green">
+               <![CDATA[
+               <b>::field:date:date_out:</b>
+               ]]>
+            </data>
+         </field>
+      </body>
+   </section>
+
+   <!--
+      This section displays the customer billing and shipping info
+   -->
+   <section  mode="single" bgcolor="#ffffe0" cellpadding="5" cellspacing="5" width="100%">
+      <body>
+         <field data_source="customer">
+            <header bgcolor="#c0c0c0">
+               <![CDATA[
+                  Customer
+               ]]>
+            </header>
+            <data>
+               <![CDATA[
+               ::field:string:name:<br>
+               ::field:string:addr:<br>
+               ::field:string:city:, ::field:string:state:, ::field:string:zip:<br>
+               Home # ::field:string:home_pn: Work # ::field:string:work_pn:
+               ]]>
+            </data>
+         </field>
+         <field data_source="vehicle">
+            <header bgcolor="#c0c0c0">
+               <![CDATA[
+                  Vehicle
+               ]]>
+            </header>
+            <data>
+               <![CDATA[
+               ::field:string:model_yr: ::field:string:color: ::field:string:make: ::field:string:model:<br>
+               Tags: ::field:string:tag: Vin: ::field:string:vin:
+               ]]>
+            </data>
+         </field>
+      </body>
+   </section>
+
+   <!--
+      This section displays the contenst of the shopping cart.
+   -->
+   <section bgcolor="#ffffff" size="2" cellpadding="0" cellspacing="5" width="100%">
+      <column data_source="parts" bgcolor="#e0ffe0" cellpadding="2" width="50%" model="mutiple">
+         <header colspan="5" size="4" bgcolor="#c0c0c0">
+            <![CDATA[
+               <b>Parts</b>
+            ]]>
+         </header>
+         <body >
+            <field>
+               <header>
+                  <![CDATA[
+                     PN
+                  ]]>
+               </header>
+               <data>
+                  ::field:string:pn:
+               </data>
+            </field>
+            <field width="50%">
+               <header>
+                  <![CDATA[
+                     Description
+                  ]]>
+               </header>
+               <data>
+                  ::field:string:descr:
+               </data>
+            </field>
+            <field>
+               <header>
+                  <![CDATA[
+                     Qty
+                  ]]>
+               </header>
+               <data>
+                  ::field:string:qty: ::field:string:measure:
+               </data>
+            </field>
+            <field>
+               <header align="right">
+                  <![CDATA[
+                     Cost
+                  ]]>
+               </header>
+               <data align="right">
+                  ::field:money:cost:
+               </data>
+            </field>
+            <field>
+               <header align="right">
+                  <![CDATA[
+                     Total
+                  ]]>
+               </header>
+               <data align="right">
+                  ::field:money:total:
+               </data>
+            </field>
+         </body>
+      </column>
+      <column data_source="labor" bgcolor="#e0e0ff" width="50%" model="mutiple">
+         <header colspan="3" size="4" bgcolor="#c0c0c0">
+            <![CDATA[
+               <b>Labor</b>
+            ]]>
+         </header>
+         <body>
+            <field width="75%">
+               <header>
+                  <![CDATA[
+                     Description
+                  ]]>
+               </header>
+               <data>
+                  ::field:string:descr:
+               </data>
+            </field>
+            <field>
+               <header align="right">
+                  <![CDATA[
+                     Hours
+                  ]]>
+               </header>
+               <data align="right">
+                  ::field:string:hours:
+               </data>
+            </field>
+            <field>
+               <header>
+                  <![CDATA[
+                     Total
+                  ]]>
+               </header>
+               <data align="right">
+                  ::field:money:cost:
+               </data>
+            </field>
+         </body>
+      </column>
+   </section>
+   <section  mode="single" bgcolor="#ffffe0" width="100%" data_source="invoice,parts_total,labor_total" cellpadding="5" cellspacing="5" width="100%">
+      <body>
+         <field align="left">
+            <header>
+               <![CDATA[
+                  Recomended Servces
+               ]]>
+            </header>
+            <data>
+               ::field:string:invoice.recomend:
+            </data>
+         </field>
+         <field align="right">
+            <header align="right">
+               <![CDATA[
+                  Totals
+               ]]>
+            </header>
+            <data align="right">
+               <![CDATA[
+                  <b>Parts:</b>&nbsp;::field:money:parts_total.total:<br>
+                  <b>Labor:</b>&nbsp;::field:money:labor_total.total:<br>
+                  <b>Sales Tax:</b>&nbsp;::field:money:invoice.tax:<br>
+                  <b>Haz. Mat.:</b>&nbsp;::field:money:invoice.hazmat:<br>
+                  <b>Total:</b><b>&nbsp;::field:money:invoice.total:</b><br>
+               ]]>
+            </data>
+         </field>
+      </body>
+   </section>
+   <section data_source="invoice"  bgcolor="#f0f0f0" width="100%">
+      <body>
+         <field align="center">
+            <data  align="center">
+               <![CDATA[
+               <b>NOTICE PURSUANT TO SECTION 70,001 TEXAS PROPERTY CODE</b>
+               ]]>
+            </data>
+         </field>
+      </body>
+   </section>
+   <section  mode="single" data_source="invoice" cellspacing="5" width="100%" >
+      <body>
+         <field align="left">
+            <data bgcolor="#f0fff0">
+               <![CDATA[
+               <font size="1">
+               I hereby authorize the above repair work to be done with necassary materials
+               and hereby grant you and your employees permission to operate the vehicle for
+               the purposes of testing and inspection. An express mechanics lien hereby
+               acnowledged on the vehicle to secure the amount of repairs thereto. I further
+               acknowledge that you will not be held responsible for any loss or damage to
+               the vehicle or articles left in it due to causes beyond our control.
+               </font>
+               ]]>
+            </data>
+         </field>
+         <field align="left">
+            <data bgcolor="#f0fff0">
+               <![CDATA[
+               <font size="1">
+               I am the person or agent acting on behalf of the person who is obligated to pay
+               for the repair of the motor vehicle subject to the repair order to which this
+               is attached. I understand that this vehicle is subject to repossesionin
+               accordance with Section 9,503, Texas Business and Commerce Code, if a written
+               order for payment for repairs of the vehicle is stopped, dishonored because of
+               insufficient funds, no funds, or because the drawer or or maker of the order
+               has no account or the account on which it is drawn has been closed.
+               </font>
+               <p>
+               Signed: __________________<br>
+               Date: ________________
+               ]]>
+            </data>
+         </field>
+      </body>
+   </section>
+</report>
+<!--
+                  Parts: ::field:string:parts_total.total:<br>
+                  Labor: ::field:string:labor_total.total:<br>
+-->
+

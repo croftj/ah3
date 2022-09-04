@@ -1,0 +1,827 @@
+<!--
+
+   This file is the default XML file provided this the AutoHouseII Program. It Describes the layout
+   of the tables and forms used by the program. Every form and table has a section describing it. 
+
+   The program relies on certain fields being present in the forms and tables. The required fields will be specified in th e comments
+   for the form or table definition.
+-->
+
+
+
+<document>
+   <!--
+      Customer form. This form is used by the customer entry / modification dialogs as well as the main window. 
+   -->
+   <form focus="name" name="wocustomer_form" auto_commit="on" index="ident" table_name="customers" >
+      <field dataName="name"     label="Name"         row="0" col="0" colspan="3" rowspan="0" min_width="0" max_width="40"    read_only="0" type="lineedit"/>
+      <field dataName="addr"     label="Addr"         row="1" col="0" colspan="3" rowspan="0" min_width="0" max_width="40"    read_only="0" type="lineedit"/>
+      <field dataName="city"     label="City"         row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="20"    read_only="0" type="lineedit"/>
+      <field dataName="state"    label="State"        row="2" col="1" colspan="0" rowspan="0" min_width="2" max_width="2"     read_only="0" type="lineedit"/>
+      <field dataName="zip"      label="Zip"          row="2" col="2" colspan="0" rowspan="0" min_width="3" max_width="10"    read_only="0" type="lineedit"/>
+      <field dataName="contact"  label="Contact"      row="3" col="0" colspan="2" rowspan="0" min_width="3" max_width="60"    read_only="0" type="lineedit"/>
+      <field dataName="home_pn"  label="Home #"       row="4" col="0" colspan="0" rowspan="0" min_width="3" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="work_pn"  label="Work #"       row="4" col="1" colspan="2" rowspan="0" min_width="3" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="beeper"   label="Beeper"       row="5" col="0" colspan="0" rowspan="0" min_width="3" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="tax_id"   label="Tax ID"       row="5" col="1" colspan="2" rowspan="0" min_width="3" max_width="20"    read_only="0" type="lineedit"/>
+<!--
+      <field dataName="url"      label="URL"          row="6" col="0" colspan="3" rowspan="0" min_width="0" max_width="128"   read_only="0" type="lineedit"/>
+      <field dataName="email"    label="EMail"        row="7" col="0" colspan="3" rowspan="0" min_width="0" max_width="128"   read_only="0" type="lineedit"/>
+-->
+      <delete_confirmation>
+              <![CDATA[ Deleting Customer ':field:name:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <form focus="name" name="custinfo_form" auto_commit="on" index="ident" table_name="customers" >
+      <field dataName="name"     label="Name"         row="0" col="0" colspan="2" rowspan="0" min_width="0" max_width="20"    read_only="1" type="lineedit"/>
+      <field dataName="home_pn"  label="Home Phone"   row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="10"    read_only="1" type="lineedit" />
+      <field dataName="work_pn"  label="Work Phone"   row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="10"    read_only="1" type="lineedit" />
+   </form>
+
+   <form focus="name" name="customer_form" auto_commit="on" index="ident" table_name="customers" >
+      <field dataName="name"     label="Name"         row="0" col="0" colspan="3" rowspan="0" min_width="0" max_width="40"    read_only="0" type="lineedit" />
+      <field dataName="addr"     label="Addr"         row="1" col="0" colspan="3" rowspan="0" min_width="0" max_width="40"    read_only="0" type="lineedit" />
+      <field dataName="city"     label="City"         row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="state"    label="State"        row="2" col="1" colspan="0" rowspan="0" min_width="3" max_width="2"     read_only="0" type="lineedit" />
+      <field dataName="zip"      label="Zip"          row="2" col="2" colspan="0" rowspan="0" min_width="8" max_width="10"    read_only="0" type="lineedit" />
+      <field dataName="contact"  label="Contact"      row="3" col="0" colspan="2" rowspan="0" min_width="5" max_width="60"    read_only="0" type="lineedit" />
+      <field dataName="tax_id"   label="Tax ID"       row="3" col="2" colspan="0" rowspan="0" min_width="5" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="home_pn"  label="Home Phone"   row="4" col="0" colspan="0" rowspan="0" min_width="7" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="work_pn"  label="Work Phone"   row="4" col="1" colspan="0" rowspan="0" min_width="7" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="beeper"   label="Beeper"       row="4" col="2" colspan="0" rowspan="0" min_width="7" max_width="20"    read_only="0" type="lineedit" />
+      <field dataName="url"      label="URL"          row="5" col="0" colspan="3" rowspan="0" min_width="0" max_width="128"   read_only="0" type="lineedit" />
+      <field dataName="email"    label="EMail"        row="6" col="0" colspan="2" rowspan="0" min_width="0" max_width="128"   read_only="0" type="lineedit" />
+      <field dataName="ident"    label="Ident"        row="6" col="2" colspan="0" rowspan="0" min_width="0" max_width="6"     read_only="1" type="lineedit" />
+      <delete_confirmation>
+              <![CDATA[ Deleting Customer ':field:name:' (No. :field:ident:). This will delete any vehicles for this customer as well. <b>This operation cannot be undone.</b> Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      Customer table. This form is used bt the customer selection dialogs as well as the customer entry / modification.
+   -->
+   <form name="customer_table" table_name="customers" index="ident" sort_fields="name ASC">
+      <field dataName="ident"    label="Ident"     min_width="2"  />
+      <field dataName="name"     label="Name"      min_width="7" />
+      <field dataName="addr"     label="Address"   min_width="7" />
+      <field dataName="city"     label="City"      min_width="5"  />
+      <field dataName="state"    label="State"     min_width="2"  />
+      <field dataName="zip"      label="Zip"       min_width="2"  />
+      <field dataName="home_pn"  label="Home #"    min_width="4"  />
+      <field dataName="work_pn"  label="Work #"    min_width="4"  />
+      <field dataName="beeper"   label="Beeper #"  min_width="4"  />
+   </form>
+
+   <!--
+      Vehicle Form, this form is used for entering in and modifying customer vehicles
+
+      Fields that must exist:
+         owner
+   -->
+   <form name="wovehicle_form" focus="make" auto_commit="on" index="ident" table_name="vehicles">
+      <field dataName="owner"    label="Cust #"    row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="ident"    label="Ident"     row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+<!--
+      <field dataName="make"     label="Make"      row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="strsel" init="config:AutoMakes"/>
+-->
+      <field dataName="make"     label="Make"      row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="strsel" init="sqlquery:select distinct make from vehicles"/>
+      <field dataName="model"    label="Model"     row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="color"    label="Color"     row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="model_yr" label="Year"      row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="odom"     label="Odometer"  row="3" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="integer" min="0" max="9999999" />
+      <field dataName="tag"      label="Tags"      row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="engine"   label="Engine"    row="4" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="trans"    label="Trans"     row="4" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="vin"      label="VIN"       row="5" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Vehicle Make: ':field:make:' Model: ':field:model:' Tag: ':field:tag:' VIN: ':field:vin:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <form name="vehcinfo_form" focus="make" auto_commit="on" index="ident" table_name="vehicles">
+      <field dataName="make"     label="Make"      row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="model"    label="Model"     row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="color"    label="Color"     row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="model_yr" label="Year"      row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+   </form>
+
+   <form name="vehicle_form" focus="make" auto_commit="on" index="ident" table_name="vehicles">
+      <field dataName="owner"    label="Cust #"    row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="ident"    label="Ident"     row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="make"     label="Make"      row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="strsel" init="config:AutoMakes"/>
+      <field dataName="model"    label="Model"     row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="model_yr" label="Year"      row="1" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="odom"     label="Odometer"  row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="integer" min="0" max="9999999" />
+      <field dataName="tag"      label="Tags"      row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="color"    label="Color"     row="2" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="engine"   label="Engine"    row="3" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="trans"    label="Trans"     row="3" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="vin"      label="VIN"       row="4" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Vehicle Make: ':field:make:' Model: ':field:model:' Tag: ':field:tag:' VIN: ':field:vin:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      Vehicle table, this table is used for selecting a customer's vehicle
+   -->
+   <form name="vehicle_table" table_name="vehicles" index="ident" sort_fields="model_yr ASC,make ASC,model ASC">
+      <field dataName="ident"    label="Ident"        min_width="0" />
+      <field dataName="make"     label="Make"         min_width="0" />
+      <field dataName="model"    label="Model"        min_width="0" />
+      <field dataName="model_yr" label="Year"         min_width="0" />
+      <field dataName="color"    label="Color"        min_width="0" />
+      <field dataName="odom"     label="Odometer"     min_width="0" />
+      <field dataName="tag"      label="Tags"         min_width="0" />
+      <field dataName="vin"      label="VIN"          min_width="0" />
+      <field dataName="engine"   label="Engine"       min_width="0" />
+      <field dataName="trans"    label="Transmission" min_width="0" />
+   </form>
+
+   <!--
+      Customer Vehicle table. This form is used for selecting a customer and thier vehicle for new jobs etc as well
+      as on the main window
+
+      Required Fields:
+         owner
+   -->
+   <form name="custvehc_table" table_name="vehicles_v" index="ident" sort_fields="owner ASC, make ASC, model ASC">
+      <field dataName="owner"    label="Owner"        min_width="15" type="lineedit" />
+      <field dataName="Make"     label="Make"         min_width="0"  type="lineedit" />
+      <field dataName="model"    label="Model"        min_width="0"  type="lineedit" />
+      <field dataName="color"    label="Color"        min_width="0"  type="lineedit" />
+      <field dataName="model_yr" label="Year"         min_width="2"  type="lineedit" />
+      <field dataName="tag"      label="Tag"          min_width="0"  type="lineedit" />
+      <field dataName="vin"      label="VIN"          min_width="0"  type="lineedit" />
+      <field dataName="engine"   label="Engine"       min_width="0"  type="lineedit" />
+      <field dataName="trans"    label="Transmission" min_width="0"  type="lineedit" />
+   </form>
+
+   <!--
+      Parts to Vendor Form. This form is used to enter the vendor specific partnumber for a part.
+   -->
+   <form name="parts2vendor_form" auto_commit="on" table_name="part2vendor">
+      <field dataName="pn"    label="Part #" row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+   </form>
+
+   <!--
+      Parts to Vendor Table. This table is used to associate vendors for a part in the part entry forms (inventory not workorders)
+   <form name="parts2vendor_table" rows="15" table_name="vendors_v" sort_fields="name ASC">
+      <field dataName="pn"       label="Part #"    min_width="0" />
+      <field dataName="name"     label="Name"      min_width="0" />
+      <field dataName="contact"  label="Contact"   min_width="0" />
+      <field dataName="phone1"   label="Phone 1"   min_width="7" />
+      <field dataName="phone2"   label="Phone 2"   min_width="7" />
+      <field dataName="fax"      label="Fax"       min_width="7" />
+      <field dataName="email"    label="EMail"     min_width="0" />
+      <field dataName="url"      label="URL"       min_width="0" />
+   </form>
+   -->
+
+   <!--
+      Parts Form, this form is used for entering parts into the inventory tables
+
+      Fields that must exist:
+         retail (used in WOPartsForm and WOPartsTable as field cost)
+   -->
+   <form name="parts_form" focus="pn" auto_commit="on" table_name="parts" index="ident">
+      <field dataName="pn"       label="Part #"          row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="lineedit"/>
+      <field dataName="ident"    label="Ident"           row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" search="no"  type="lineedit" />
+      <field dataName="make"     label="Make"            row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="strsel" init="config:AutoMakes"/>
+      <field dataName="category" label="Category"        row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="strsel" init="config:Categories"/>
+      <field dataName="supply"   label="Supply"          row="1" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="yesno"/>
+      <field dataName="descr"    label="Descr."          row="2" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="lineedit"/>
+      <field dataName="measure"  label="Units"           row="3" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="strsel" init="config:Units"/>
+      <field dataName="lowmark"  label="Low Thresh."     row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="double"/>
+      <field dataName="buylevel" label="Buy to"          row="3" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="double"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Part ':field:pn: :field:descr:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      Parts Table, this table is used selecting parts from the inventory tables
+   -->
+   <form name="parts_table" table_name="parts" sort_fields="pn ASC,make ASC,category ASC"  index="ident">
+      <field dataName="pn"       label="Part #"       min_width="0" />
+      <field dataName="make"     label="Make"         min_width="0" />
+      <field dataName="category" label="Category"     min_width="0" />
+      <field dataName="descr"    label="Descr."       min_width="0" />
+      <field dataName="measure"  label="Meas."        min_width="0" />
+      <field dataName="supply"   label="Supply"       min_width="0" />
+      <field dataName="ident"    label="Ident"        min_width="0" />
+   </form>
+
+   <form name="part_lookup_form" auto_commit="on" table_name="parts_v" index="ident">
+      <field dataName="pn"       label="Part #"       row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="lineedit"/>
+      <field dataName="onhand"   label="Qty In stock" row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="double" decimals="1"/>
+      <field dataName="ident"    label="Ident"        row="0" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" search="no"  type="lineedit"/>
+      <field dataName="make"     label="Make"         row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="strsel" init="config:AutoMakes"/>
+      <field dataName="category" label="Category"     row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="strsel" init="config:Categories"/>
+      <field dataName="cost"     label="Cost"         row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="money"/>
+      <field dataName="retail"   label="Retail"       row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" search="no"  type="money"/>
+      <field dataName="descr"    label="Descr."       row="3" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" search="yes" type="lineedit" />
+   </form>
+
+   <form name="part_lookup_table" auto_commit="on" table_name="parts_v" index="ident">
+      <field dataName="pn"       label="Part #"       min_width="0" />
+      <field dataName="descr"    label="Descr."       min_width="30" />
+      <field dataName="make"     label="Make"         min_width="0" />
+      <field dataName="category" label="Category"     min_width="0" />
+      <field dataName="onhand"   label="Qty In stock" min_width="5" />
+      <field dataName="cost"     label="Cost"         min_width="7" type="money" />
+      <field dataName="retail"   label="Retail"       min_width="7" type="money" />
+      <field dataName="ident"    label="Ident"        min_width="0" />
+   </form>
+
+   <form name="part2vendor_part_form" auto_commit="on" table_name="part2vendor" index="ident">
+      <field dataName="pn"       label="Part #"       row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="ident"    label="Ident"        row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="vendor"   label="Vendor Id"    row="0" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="onhand"   label="Qty In stock" row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double" decimals="1"/>
+      <field dataName="cost"     label="Cost"         row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="money"/>
+      <field dataName="retail"   label="Retail"       row="1" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="money"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Vendor for part ':field:pn:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+   <form name="part2vendor_vend_form" auto_commit="on" table_name="vendors" index="ident">
+      <field dataName="name"     label="Vendor"       row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="ident"    label="Ident"        row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="contact"  label="Contact"      row="1" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="phone1"   label="Phone 1"      row="2" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="phone2"   label="Phone 2"      row="3" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="fax"      label="Fax"          row="4" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="email"    label="EMail"        row="5" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="url"      label="URL"          row="6" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+   </form>
+   <form name="part2vendor_table" table_name="parts_v" sort_fields="vendor"  index="ident">
+      <field dataName="pn"             label="Part #"       min_width="0" />
+      <field dataName="vendor"         label="Vendor"       min_width="0" />
+      <field dataName="onhand"         label="Qty In stock" min_width="0" />
+      <field dataName="measure"        label="Meas."        min_width="0" />
+      <field dataName="cost"           label="Cost"         min_width="0" />
+      <field dataName="retail"         label="Retail"       min_width="0" />
+      <field dataName="ident"          label="Ident"        min_width="0" />
+      <field dataName="vendor_ident"   label="Vendor ID"   min_width="0" />
+   </form>
+
+   <!--
+   Vendor Form, this form is for entering and modifying vendors
+   -->
+   <form name="vendors_form" focus="name" auto_commit="on" table_name="vendors" index="ident">
+      <field dataName="name"     label="Name"      row="0" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="Active"   label="Active"    row="0" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="yesno"/>
+      <field dataName="contact"  label="Contact"   row="1" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="account1" label="Account#"  row="1" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="address1" label="Addr 1"    row="2" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="address2" label="Addr 2"    row="3" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="city"     label="City"      row="4" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="state"    label="State"     row="4" col="1" colspan="0" rowspan="0" min_width="3" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="zipcode"  label="Zip"       row="4" col="2" colspan="0" rowspan="0" min_width="3" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="phone1"   label="Phone 1"   row="5" col="0" colspan="0" rowspan="0" min_width="4" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="phone2"   label="Phone 2"   row="5" col="1" colspan="0" rowspan="0" min_width="4" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="fax"      label="Fax"       row="5" col="2" colspan="0" rowspan="0" min_width="4" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="url"      label="URL"       row="6" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="email"    label="EMail"     row="7" col="0" colspan="3" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Vendor 'field:name:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <form name="vendors_table" table_name="vendors" index="ident" sort_fields="name ASC">
+      <field dataName="name"     label="Name"      min_width="0" />
+      <field dataName="Active"   label="Active"    min_width="0" />
+      <field dataName="contact"  label="Contact"   min_width="0" />
+      <field dataName="phone1"   label="Phone 1"   min_width="7" />
+      <field dataName="phone2"   label="Phone 2"   min_width="7" />
+      <field dataName="fax"      label="Fax"       min_width="7" />
+      <field dataName="email"    label="EMail"     min_width="0" />
+      <field dataName="url"      label="URL"       min_width="0" />
+      <field dataName="ident"    label="ident"     min_width="0" />
+   </form>
+
+
+   <!--
+   Vendor Table, this form is for selecting vendors
+   -->
+   <form name="vendor_select_table" table_name="vendors" index="ident" sort_fields="name ASC">
+      <field dataName="name"     label="Name"      min_width="0" />
+      <field dataName="Active"   label="Active"    min_width="0" />
+      <field dataName="contact"  label="Contact"   min_width="0" />
+      <field dataName="phone1"   label="Phone 1"   min_width="7" />
+      <field dataName="phone2"   label="Phone 2"   min_width="7" />
+      <field dataName="fax"      label="Fax"       min_width="7" />
+      <field dataName="email"    label="EMail"     min_width="0" />
+      <field dataName="url"      label="URL"       min_width="0" />
+      <field dataName="ident"    label="ident"     min_width="0" />
+   </form>
+
+   <!--
+      This form is used for entering labor and showing the labor on a workorder.
+
+      These fields are required:
+         workorder
+   -->
+   <form name="wolabor_form" focus="descr" auto_commit="on" index="ident" table_name="wo_labor">
+      <field dataName="ident"       label="Ident"        row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="workorder"   label="WorkOrder"    row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="descr"       label="Description"  row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="hours"       label="Hours"        row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double" min="0" decimals="1"/>
+      <field dataName="tech"        label="Tech"         row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <delete_confirmation>
+              <![CDATA[<qt><center>Deleting Labor<p><b>':field:descr:'</b><p>from work order. <p><b>This operation cannot be undone!</b><p> Are you sure?</center></qt>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This table is used on the dialog for entering / modifying the labor  of a work order
+   -->
+   <form name="wolabor_table" index="ident" table_name="wo_labor_v" sort_fields="ident ASC">
+      <label color="#ffffd0" bgcolor="#9090ff" />
+      <field dataName="ident" label="Ident"  min_width="0"  />
+      <field dataName="descr" label="Descr"  min_width="30" />
+      <field dataName="hours" label="Hours"  min_width="0"  />
+      <field dataName="tech"  label="Tech"   min_width="0"  />
+      <field dataName="cost"  label="Cost"   min_width="10" type="money" />
+   </form>
+
+   <!--
+      This form is used for entering parts and showing the parts on a workorder.
+
+      These fields are required:
+         workorder
+         taxable
+         cost
+   -->
+   <form name="woparts_form" focus="pn" auto_commit="on" index="ident" table_name="wo_parts">
+      <field dataName="ident"       label="Ident"        row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="workorder"   label="WorkOrder"    row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="pn"          label="Part #"       row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="descr"       label="Description"  row="1" col="1" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="qty"         label="Qty"          row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double" min="0" decimals="1" />
+      <field dataName="measure"     label="Meas."        row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="strsel" init="config:Units" />
+      <field dataName="cost"        label="Unit Cost"    row="2" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="money" default="0.00" />
+      <field dataName="taxable"     label="Taxable"      row="3" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="yesno" default="Y" />
+      <field dataName="supply"      label="Supply"       row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="yesno" default="N" />
+      <delete_confirmation>
+         <![CDATA[<qt><center>Deleting Part<p><b>':field:pn: :field:descr:'</b><p>from work order.<p><b>This operation cannot be undone!</b><p> Are you sure?</center></qt>]]> 
+      </delete_confirmation>
+   </form>
+   <!--
+      This table is used on the dialog for entering / modifying the parts of a work order
+   -->
+   <form name="woparts_table" table_name="wo_parts_v" index="ident" sort_fields="ident ASC">
+      <label color="#ffffd0" bgcolor="#9090ff" />
+      <field dataName="ident"    label="Ident"     min_width="3"  />
+      <field dataName="pn"       label="Part #"    min_width="8"  />
+      <field dataName="qty"      label="Qty"       min_width="4"  />
+      <field dataName="measure"  label="Meas."     min_width="0"  />
+      <field dataName="descr"    label="Descr"     min_width="10" />
+      <field dataName="taxable"  label="Taxable"   min_width="7"  />
+      <field dataName="supply"   label="Supply"    min_width="7"  />
+      <field dataName="cost"     label="Cost"      min_width="10" type="money" />
+      <field dataName="total"    label="Total"     min_width="10" type="money" />
+   </form>
+
+   <!--
+      This form is used on the main dialog for entering in the Workorder related information.
+
+      The required fields are:
+         closed
+   -->
+   <form name="workorder_form" focus="date_in" auto_commit="on" index="ident" table_name="workorders">
+      <field dataName="ident"    label="Invoice"      row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="lineedit"/>
+      <field dataName="closed"   label="Closed"       row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="10"  read_only="1" type="lineedit"/>
+      <field dataName="customer" label="Customer"     row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="lineedit"/>
+      <field dataName="vehicle"  label="Vehicle"      row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="2"  read_only="1" type="lineedit"/>
+      <field dataName="date_in"  label="Date In "     row="2" col="0" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="0" type="date"/>
+      <field dataName="od_in"    label="Odom. In"     row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" type="integer" min="0" max="9999999" />
+      <field dataName="date_out" label="Date Out"     row="3" col="0" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="0" type="date"/>
+      <field dataName="od_out"   label="Odom. Out"    row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" type="integer" min="0" max="9999999" />
+      <field dataName="r_labor"  label="Labor Rate"   row="4" col="0" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="0" type="money" default="config:LaborRate" />
+      <field dataName="hazmat"   label="Haz. Mat."    row="4" col="1" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" type="money" default="0.00" />
+      <field dataName="parts"    label="Parts"        row="5" col="0" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="1" type="money"/>
+      <field dataName="labor"    label="Labor"        row="5" col="1" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="money" />
+      <field dataName="tax"      label="Sales Tax"    row="6" col="0" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="1" type="money"/>
+      <field dataName="r_tax"    label="Tax Rate"     row="6" col="1" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" type="double" decimals="4" default="config:SalesTaxRate" />
+      <field dataName="total"    label="Total"        row="7" col="1" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="money"/>
+      <field dataName="recomend" label="Recomended"   row="0" col="2" colspan="0" rowspan="8" min_width="0" max_width="0"  read_only="0" type="textedit"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Work order ':field:ident:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <!-- 
+      This form definition is for displaying the parts total of a workorder
+   -->
+   <form name="wo_parts_total_form" index="ident" table_name="wo_parts_total">
+      <field dataName="total"    label="Parts Total"           row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="money"/>
+   </form>
+
+   <!-- 
+      This form definition is for displaying the total of inly the taxable parts of a workorder
+   -->
+   <form name="wo_tax_parts_total_form" index="ident" table_name="wo_taxparts_total">
+      <field dataName="total"    label="Taxable Parts Total"   row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="money"/>
+   </form>
+
+   <!-- 
+      This form definition is for displaying the labor total of a workorder
+   -->
+   <form name="wo_labor_total_form" index="ident" table_name="wo_labor_total">
+      <field dataName="total"    label="Labor Total"        row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="1" type="money"/>
+      <delete_confirmation>
+              <![CDATA[ Deleting Work order ':field:ident:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+   
+   <form name="woselect_form" auto_commit="on" index="ident" table_name="workorders">
+      <field dataName="ident"    label="Invoice"      row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" search="yes" type="lineedit" />
+      <field dataName="name"     label="Name"         row="0" col="1" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="0" search="yes" type="lineedit" />
+      <field dataName="closed"   label="Closed"       row="0" col="2" colspan="0" rowspan="0" min_width="0" max_width="0"  read_only="0" search="yes" type="yesno"    />
+      <field dataName="make"     label="Make"         row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" search="yes" type="lineedit" />
+      <field dataName="model"    label="Model"        row="1" col="1" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="0" search="yes" type="lineedit" />
+      <field dataName="tag"      label="Tag"          row="1" col="2" colspan="0" rowspan="0" min_width="0" max_width="10" read_only="0" search="yes" type="lineedit" />
+      <field dataName="vin"      label="Vin"          row="2" col="0" colspan="3" rowspan="0" min_width="0" max_width="10" read_only="0" search="yes" type="lineedit" />
+      <field dataName="date_in"  label="Date In "     row="3" col="0" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="1" search="no"  type="date"     />
+      <field dataName="r_tax"    label="Tax Rate"     row="3" col="1" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="1" search="no"  type="double" decimals="4" default="config:SalesTaxRate" />
+      <field dataName="r_labor"  label="Labor Rate"   row="3" col="2" colspan="0" rowspan="0" min_width="1" max_width="10" read_only="1" search="no"  type="money" default="config:LaborRate" />
+      <key_generator>
+         <![CDATA[ select nextval('workorders_ident_seq') ]]>
+      </key_generator>
+      <delete_confirmation>
+              <![CDATA[ Deleting Work order ':field:ident:'. Are you sure?]]> 
+      </delete_confirmation>
+   </form>
+
+   <form name="woselect_table" table_name="workorders_v" index="ident" sort_fields="ident DESC">
+      <field dataName="ident"    label="WO#"           min_width="5"  />
+      <field dataName="closed"   label="Closed"        min_width="5"  />
+      <field dataName="date_in"  label="Date In"       min_width="0"  />
+      <field dataName="name"     label="Name"          min_width="20" />
+      <!--
+         The fields total, parts and labor can be uncommented and added to the workorder 
+         select table IF they are specified in the view "workorders_v". If this was a 
+         new install, they are part of the view, otherwise they maynot be but the view 
+         can be droped and refined.
+      -->
+      <!--
+      <field dataName="parts"    label="Parts"         min_width="0"  />
+      <field dataName="labor"    label="Labor"         min_width="0"  />
+      <field dataName="total"    label="Total"         min_width="0"  />
+      -->
+      <field dataName="make"     label="Make"          min_width="0"  />
+      <field dataName="model"    label="Model"         min_width="0"  />
+      <field dataName="color"    label="Color"         min_width="0"  />
+      <field dataName="tag"      label="Tag"           min_width="7"  />
+      <field dataName="vin"      label="Vin"           min_width="12" />
+      <field dataName="customer" label="Cust. Id."     min_width="0"  />
+      <field dataName="vehicle"  label="Vehic. Id."    min_width="0"  />
+      <delete_confirmation>
+              <![CDATA[ <qt><center>Deleting Work order ':field:ident:'.<p><b>If this workorder is closed, it may mess with your accounting</b><p>Are you sure?</center></qt>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This form is used for entering auto-jobs
+   -->
+   <form name="auto_job_form" focus="descr" auto_commit="on" index="ident" table_name="jobs">
+      <field dataName="ident"          label="Ident"              row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="descr"          label="Description"        row="1" col="0" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="make"           label="Make"               row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="model"          label="Model"              row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="labor"          label="Hours"              row="3" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double" min="0" decimals="1" />
+      <field dataName="charge4parts"   label="Charge for Parts"   row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="yesno" />
+      <delete_confirmation>
+         <![CDATA[<html><center>Deleting Job<p><b>':field:descr:</b> for make and model of <b>:field:make: / :field:model:</b><p><b>This operation cannot be undone!</b><p> Are you sure?</center></html>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This form is used for entering auto-jobs
+   -->
+   <form name="auto_job_table" focus="descr" auto_commit="on" index="ident" table_name="jobs">
+      <field dataName="ident"          label="Ident"              min_width="0" />
+      <field dataName="descr"          label="Description"        min_width="0" />
+      <field dataName="make"           label="Make"               min_width="0" />
+      <field dataName="model"          label="Model"              min_width="0" />
+      <field dataName="labor"          label="Hours"              min_width="0" />
+      <field dataName="charge4parts"   label="Charge for Parts"   min_width="0" />
+   </form>
+
+   <!--
+      This form is used on the dialog for entering / modifying the parts of a predefined job
+   -->
+   <form name="job_part_form" table_name="job_parts" auto_commit="on" index="ident" sort_fields="descr">
+      <field dataName="ident"    label="Ident"     row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit" />
+      <field dataName="job"      label="Job"       row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit" />
+      <field dataName="pn"       label="Part #"    row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="descr"    label="Descr"     row="1" col="1" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="qty"      label="Qty"       row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double"  min="0" decimals="1" />
+      <field dataName="measure"  label="Meas."     row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="strsel" init="config:Units" />
+      <field dataName="cost"     label="Cost"      row="2" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="money"  />
+      <delete_confirmation>
+         <![CDATA[<html><center>Deleting part<p><b>':field:pn:</b> for job <b>:field:job:</b><p><b>This operation cannot be undone!</b><p> Are you sure?</center></html>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This table is used on the dialog for entering / modifying the parts of a predefined job
+   -->
+   <form name="job_part_table" table_name="job_parts" index="ident" sort_fields="descr">
+      <field dataName="ident"    label="Ident"     min_width="3"  />
+      <field dataName="pn"       label="Part #"    min_width="8"  />
+      <field dataName="qty"      label="Qty"       min_width="4"  />
+      <field dataName="measure"  label="Meas."     min_width="0"  />
+      <field dataName="descr"    label="Descr"     min_width="10" />
+      <field dataName="cost"     label="Cost"      min_width="10" />
+   </form>
+
+   <form name="job_select_table" focus="descr" auto_commit="on" index="ident" table_name="jobs">
+      <field dataName="ident"          label="Ident"              min_width="0" />
+      <field dataName="descr"          label="Description"        min_width="0" />
+      <field dataName="make"           label="Make"               min_width="0" />
+      <field dataName="model"          label="Model"              min_width="0" />
+      <field dataName="labor"          label="Hours"              min_width="0" />
+      <field dataName="charge4parts"   label="Charge for Parts"   min_width="0" />
+   </form>
+
+   <!--
+      This form is used for entering auto-jobs
+   -->
+   <form name="wo_job_form" focus="descr" auto_commit="on" index="ident" table_name="wo_labor">
+      <field dataName="ident"          label="Ident"              row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit"/>
+      <field dataName="descr"          label="Description"        row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit"/>
+      <field dataName="hours"          label="Hours"              row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double" min="0" decimals="1" />
+      <delete_confirmation>
+         <![CDATA[<html><center>Deleting Job<p><b>':field:descr:</b> for make and model of <b>:field:make: / :field:model:</b><p><b>This operation cannot be undone!</b><p> Are you sure?</center></html>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This form is used for entering auto-wo_labor
+   -->
+   <form name="wo_job_table" focus="descr" auto_commit="on" index="ident" table_name="wo_labor">
+      <field dataName="ident"          label="Ident"              min_width="0" />
+      <field dataName="hours"          label="Hours"              min_width="0" />
+      <field dataName="descr"          label="Description"        min_width="0" />
+   </form>
+
+   <!--
+      This form is used on the dialog for entering / modifying the parts of a predefined job
+   -->
+   <form name="wo_job_part_form" table_name="wo_parts" auto_commit="on" index="ident" sort_fields="descr">
+      <field dataName="ident"    label="Ident"     row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit" />
+      <field dataName="job"      label="Job"       row="0" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit" />
+      <field dataName="pn"       label="Part #"    row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="descr"    label="Descr"     row="1" col="1" colspan="2" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="qty"      label="Qty"       row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="double"  min="0" decimals="1" />
+      <field dataName="measure"  label="Meas."     row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="strsel" init="config:Units" />
+      <field dataName="cost"     label="Cost"      row="2" col="2" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="money"  />
+      <field dataName="supply"   label="Supply"    row="3" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="yesno" default="N" />
+      <field dataName="taxable"  label="Taxable"   row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="yesno" default="Y" />
+      <delete_confirmation>
+         <![CDATA[<html><center>Deleting part<p><b>':field:pn:</b> for job <b>:field:job:</b><p><b>This operation cannot be undone!</b><p> Are you sure?</center></html>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This table is used on the dialog for entering / modifying the parts of a predefined job
+   -->
+   <form name="wo_job_part_table" table_name="wo_parts" index="ident" sort_fields="descr">
+      <field dataName="ident"    label="Ident"     min_width="3"  />
+      <field dataName="pn"       label="Part #"    min_width="8"  />
+      <field dataName="qty"      label="Qty"       min_width="4"  />
+      <field dataName="measure"  label="Meas."     min_width="0"  />
+      <field dataName="descr"    label="Descr"     min_width="10" />
+      <field dataName="cost"     label="Cost"      min_width="10" />
+   </form>
+
+
+   <form name="job_part_select_table" focus="descr" auto_commit="on" index="ident" table_name="jobs">
+      <field dataName="ident"    label="Ident"     min_width="3"  />
+      <field dataName="pn"       label="Part #"    min_width="8"  />
+      <field dataName="qty"      label="Qty"       min_width="4"  />
+      <field dataName="measure"  label="Meas."     min_width="0"  />
+      <field dataName="descr"    label="Descr"     min_width="10" />
+      <field dataName="cost"     label="Cost"      min_width="10" />
+   </form>
+
+   <!--
+      This form is used on the dialog for entering / modifying auto makes and models
+   -->
+   <form name="auto_make_form" table_name="auto_makes" auto_commit="on" index="ident">
+      <field dataName="ident"    label="Ident"     row="0" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit" />
+      <field dataName="make"     label="Make"      row="1" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="year_beg" label="Year Beg." row="1" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="integer" />
+      <field dataName="model"    label="Model"     row="2" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="1" type="lineedit" />
+      <field dataName="year_end" label="Year End"  row="2" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="integer" />
+      <field dataName="engine"   label="Engine"    row="3" col="0" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <field dataName="trans"    label="Trans."    row="3" col="1" colspan="0" rowspan="0" min_width="0" max_width="0" read_only="0" type="lineedit" />
+      <delete_confirmation>
+         <![CDATA[<html><center>Deleting Auto Make<p><b>':field:make: :field:madel:</b><p><b>This operation cannot be undone!</b><p> Are you sure?</center></html>]]> 
+      </delete_confirmation>
+   </form>
+
+   <!--
+      This table is used on the dialog for entering / modifying auto makes and models
+   -->
+   <form name="auto_make_table" table_name="auto_makes" index="ident" sort_fields="make, model">
+      <field dataName="ident"    label="Ident"     min_width="3"  />
+      <field dataName="make"     label="Make"      min_width="16"  />
+      <field dataName="model"    label="Model"     min_width="64" />
+      <field dataName="engine"   label="Engine"    min_width="0"  />
+      <field dataName="trans"    label="Trans."    min_width="0"  />
+      <field dataName="year_beg" label="Year Beg." min_width="0"  />
+      <field dataName="year_end" label="Year End"  min_width="0"  />
+   </form>
+
+
+   <!--
+
+      These resources which have a group of "workorder_total" are define queries which will
+      be executed and added together to provide a total for the workorder.
+
+      Each resources must have a property "query" defined. This is the sql statement which
+      will be executed to determine the value of the resource.
+
+      If the resource has a property named "field" the value will be set into the specified field
+      of the workorder. THE FIELD MUST BE DEFINED IN THE WORKORDER FORM "workorder_form" ABOVE!
+
+   -->
+   <resource name="parts_total" group="workorder_total">
+      <property name="field" value="parts" />
+      <property name="query" >
+         <![CDATA[ select total from wo_parts_total where ident = ::workorder:]]>
+      </property>
+   </resource>
+
+   <resource name="labor_total" group="workorder_total">
+      <property name="field" value="labor"/>
+      <property name="query" >
+         <![CDATA[ select total from wo_labor_total where ident = ::workorder:]]>
+      </property>
+   </resource>
+
+   <resource name="hazmat_total" group="workorder_total">
+      <property name="query" >
+      <![CDATA[ select hazmat from workorders where ident = ::workorder:]]>
+      </property>
+   </resource>
+
+   <!--
+      The three (or more) entries are special, their fields name is set to a combination of the name of a configuration
+      item and the field name they will be summed with if the configuration item equals 'Y'.
+
+      It is important that the configuration item is a 'yesno' type entry.
+   -->
+   <resource name="salestax_clear" group="workorder_total">
+      <property name="field" value="tax" />
+      <property name="query" >
+         <![CDATA[ select cast(0 as numeric(7,2)) as salestax ]]>
+      </property>
+   </resource>
+   <resource name="salestax_parts" group="workorder_total">
+      <property name="field" value="TaxParts:tax" />
+      <property name="query" >
+      <![CDATA[ select 
+                  cast ((select coalesce(total, 0.0) from wo_taxparts_total where ident = workorders.ident) * r_tax::numeric as numeric(7,2)) as saletax
+                from workorders where ident = ::workorder:
+      ]]>
+      </property>
+   </resource>
+
+   <resource name="salestax_labor" group="workorder_total">
+      <property name="field" value="TaxLabor:tax" />
+      <property name="query" >
+      <![CDATA[ select 
+                  cast ((select coalesce(total, 0.0) from wo_labor_total where ident = workorders.ident) * r_tax::numeric as numeric(7,2)) as saletax
+                from workorders where ident = ::workorder:
+      ]]>
+      </property>
+   </resource>
+
+   <resource name="salestax_hazmat" group="workorder_total">
+      <property name="field" value="TaxHazMat:tax" />
+      <property name="query" >
+      <![CDATA[ select cast(coalesce(hazmat, 0.0) * r_tax::numeric as numeric(7,2)) as saletax from workorders where ident = ::workorder:
+      ]]>
+      </property>
+   </resource>
+<!--
+   <resource name="salestax_labor_total" group="workorder_total">
+      <property name="field" value="tax" />
+      <property name="query" >
+      <![CDATA[ select 
+                  cast (((select coalesce(total, 0.0) from wo_taxparts_total where ident = workorders.ident) +
+                        (select coalesce(total, 0.0) from wo_labor_total where ident = workorders.ident))
+                        * r_tax::numeric as numeric(7,2)) as saletax
+                     from workorders where ident = ::workorder:
+      ]]>
+      </property>
+   </resource>
+-->
+   <configuration name="rates" title="Rates">
+      <entry name="LaborRate"    label="Labor Rate" type="double" default="70.00" >
+         <help>
+            <![CDATA[
+               <center>
+               <h2>Rates Configuration</h2>
+               <hr width="66%">
+               </center>
+               <p>
+               <b>Labor Rate</b> Hourly rate to calculate the labor charges with.
+            ]]>
+         </help>
+      </entry>
+      <entry name="SalesTaxRate" label="Sales Tax Rate" type="double" default="0.0825" >
+         <help>
+            <![CDATA[
+               <b>Sales Tax Rate</b> Decimal value to use for calculating sales tax.
+            ]]>
+         </help>
+      </entry>
+      <entry name="LaborRate"    label="Labor Rate" type="double" default="70.00" >
+         <help>
+            <![CDATA[
+               <b>Labor Rate</b> Hourly rate to calculate the labor charges with.
+            ]]>
+         </help>
+      </entry>
+      <entry name="AutoMakes"    label="Valid Auto makes" type="lineedit" default="Mercedes,VW,BMW" >
+         <help>
+            <![CDATA[
+               <b>Valid Auto Makes</b> A comma seperated list of Makes of vehicles.
+            ]]>
+         </help>
+      </entry>
+      <entry name="Units"        label="Units of Measure" type="lineedit" default="Ea,Qt,Gal,Oz,Lb,l,gm,kg" >
+         <help>
+            <![CDATA[
+               <b>Units of Measure</b> A comma seperated list of measurements
+            ]]>
+         </help>
+      </entry>
+      <entry name="Categories"   label="Parts Categories" type="lineedit" default="Electrical,Cooling,Engine,Transmission,Suspension,Intrumentation,Misc." >
+         <help>
+            <![CDATA[
+               <b>Parts Categories</b> A comma seprated list of categories a part can be in.
+            ]]>
+         </help>
+      </entry>
+      <entry name="TaxParts"     label="Parts Taxable?" type="yesno" default="Y" >
+         <help>
+            <![CDATA[
+               <b>Parts Taxable?</b> Should sales tax be calculated for parts?
+            ]]>
+         </help>
+      </entry>
+      <entry name="TaxLabor"     label="Labor Taxable?" type="yesno" default="N" >
+         <help>
+            <![CDATA[
+               <b>Labor Taxable?</b> Should sales tax be calculated for labor?
+            ]]>
+         </help>
+      </entry>
+      <entry name="TaxHazMat"    label="Haz. Mat. Taxable?" type="yesno" default="N" >
+         <help>
+            <![CDATA[
+               <b>Haz. Mat. Taxable?</b> Should sales tax be calculated for hazardous material?
+            ]]>
+         </help>
+      </entry>
+      <entry name="Currency"    label="Currency Symbol" type="lineedit" default="$" >
+         <help>
+            <![CDATA[
+               <b>Currency Symbol</b> The charactor that should be used to denote the local currency
+            ]]>
+         </help>
+      </entry>
+   </configuration>
+   <configuration name="bizinfo" title="Invoice Settings">
+      <entry name="bizname"     label="Business Name"            type="lineedit" default="" >
+         <help>
+            <![CDATA[
+               <center>
+               <h2>Invoice Settings Configuration</h2>
+               <hr width="66%">
+               These are items which will be placed on the invoices when they are printed. They should be
+               pretty self explanatory. Their actual use is defined in the file <em>/opt/ah3/reports/invoice.xml</em>.
+               </center>
+            ]]>
+         </help>
+      </entry>
+      <entry name="bizaddr1"    label="Business Addr 1"          type="lineedit" default="" />
+      <entry name="bizaddr2"    label="Business Addr 2"          type="lineedit" default="" />
+      <entry name="bizcity"     label="Business City"            type="lineedit" default="" />
+      <entry name="bizstate"    label="Business State"           type="lineedit" default="" />
+      <entry name="bizzip"      label="Business Zip"             type="lineedit" default="" />
+      <entry name="bizphone"    label="Business Phone"           type="lineedit" default="" />
+      <entry name="bizfax"      label="Business Fax"             type="lineedit" default="" />
+      <entry name="bizurl"      label="Business Url"             type="lineedit" default="" />
+      <entry name="bizicon"     label="Invoice Icon"             type="file"     default="" filter="Image Files (*.png *.jpg *.gif);; All Files (*)" />
+   </configuration>
+</document>
+

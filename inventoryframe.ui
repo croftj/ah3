@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>InventoryFrame</class>
+ <widget class="QFrame" name="InventoryFrame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>649</width>
+    <height>528</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::StyledPanel</enum>
+  </property>
+  <property name="frameShadow">
+   <enum>QFrame::Raised</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QGroupBox" name="groupBox_10">
+       <property name="title">
+        <string>Part Select</string>
+       </property>
+       <layout class="QGridLayout" name="_7">
+        <item row="0" column="0">
+         <widget class="QcjDataTable" name="invPartsTable">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;html&gt;This table is for selecting a part to modify from inventory. It's xml form name is &lt;em&gt;parts_table&lt;/em&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="xml_definition" stdset="0">
+           <string>parts_table</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_13">
+       <property name="title">
+        <string>Vendor's Parts</string>
+       </property>
+       <layout class="QGridLayout" name="_8">
+        <item row="0" column="0">
+         <widget class="QcjDataTable" name="part2VendorsTable">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="whatsThis">
+           <string/>
+          </property>
+          <property name="xml_definition" stdset="0">
+           <string>part2vendor_table</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_14">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Vendor Part</string>
+      </property>
+      <layout class="QHBoxLayout" name="_9">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame_12">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="_10">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="margin">
+           <number>9</number>
+          </property>
+          <item>
+           <widget class="QcjDataForm" name="part2VendorsPartForm">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;This form for entering vendor specific parts information into inventory. It's xml form name is &lt;em&gt;parts2vendor_part_form&lt;/em&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="xml_definition" stdset="0">
+             <string>part2vendor_part_form</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QcjDataForm" name="part2VendorsVendForm">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;This form for entering vendor specific information into inventory. It's xml form name is &lt;em&gt;parts2vendor_vend_form&lt;/em&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="xml_definition" stdset="0">
+             <string>part2vendor_vend_form</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="_11">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="margin">
+           <number>9</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="addBtn">
+            <property name="toolTip">
+             <string>&lt;html&gt;Clicking this button will insert a new vendor record for the part selected above&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Add Vendor</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="saveBtn">
+            <property name="toolTip">
+             <string>&lt;html&gt;Clicking this button will save the  vendor information for the part selected above&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Save Vendor</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteBtn">
+            <property name="toolTip">
+             <string>&lt;html&gt;Clicking this button will delete the vendor information for the part selected above&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Delete Vendor</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="allPart2VendorBtn">
+            <property name="toolTip">
+             <string>&lt;html&gt;Checking this box will show all vendor parts, not just the vendors for the part above&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>View All Parts</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QcjDataForm</class>
+   <extends>QFrame</extends>
+   <header>QcjData/QcjDataForm.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QcjDataTable</class>
+   <extends>QFrame</extends>
+   <header>QcjData/QcjDataTable.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

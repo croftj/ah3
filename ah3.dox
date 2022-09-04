@@ -1,0 +1,107 @@
+/*!
+
+\mainpage Ah3 Invoicing and Inventory System for Repair Shops
+
+\section introduction Introduction
+
+Ah3 is an invoicing and inventory system for repair shops. Out of the box it is focused
+towards autmotive repair shops but can be readily changed for any sort of
+shop without any knowledge of coding or recompiling the application. 
+
+Some of its features include:
+
+- Customer and vehicle database
+- Inventory management
+- Customizable invoice generation
+- Forms which can be redily customized without code changes
+- Minimal data changes from Ah2
+- Building on MS Windows is possible
+
+A user manual can be found <a href="userman/index.html">by clicking here</a>.
+
+\section dependencies Dependencies
+
+Ah3 uses the Qt toolkit from 
+<a href="http://www.trolltech.com">Trolltech</a>.
+It also uses the 
+<a href="http://www.postgresql.org">Postgresql</a> database, though it may be possible, with a
+little effort, to have it work with  
+<a href="http://www.mysql.com">MySql</a> or
+<a href="http://www.sqlite.org/">Sqlite</a>.
+
+\section download Download & Building
+
+You can find the source code at ftp://www.linuxlots.com/pub/ah3
+
+Currently only a tar ball of the source is available. In the future binary
+versions will be available.
+
+
+All of my instructions assume you have proper users, permissions etc to create
+databases on your postgres server.
+
+As a Qt project, building Ah3 is straight forward. 
+
+- Be sure you have the Postgresql drivers for Qt installed. 
+- Untar the the source then cd into the directory ah3-xxx
+- Execute `qmake ah3.pro`
+- Execute `make`
+- You will now have an executible named \e Ah3. Move this to /usr/bin or
+wherever you like
+- Execute `mkdir /opt/ah3`
+- Execute `mkdir /opt/ah3/reports`
+- Execute `cp invoice.xml /opt/ah3/reports`
+- Execute `cp ah3.xml /opt/ah3/default_forms.xml`
+
+If you do not have ah2 already running on your system. You can set up the
+postgres with the following commands. DO NOT EXECUTE THESE COMMANDS IF YOU
+HAVE AH2 ALREADY RUNNING ON YOUR SYSTEM.
+
+- Execute `createdb ah3`
+- Execute `psql ah3 <ah3.psql`
+
+\section migration Migration from Ah2
+
+I need he help of existing ah2 users. The inventory tables have changed and
+I do not have a large enough sample to be able to come up with the required
+scripts and instructions on migrating the inventory and vendor tables. If
+you want to help the cause, please contact me at 
+<a href="mailto:joe@croftj.net>joe@croftj.net</a>.
+
+With that said...
+
+If you already have Ah2 running on your machine. Migrating to Ah3 is fairly
+simple. Only the inventory tables have changed. Beyond that, all of the
+customer records have remained the same.
+
+To ensure your ability to go back to ah2, these instructions will step you
+through cloning your existing database then adjusting the new copy to 
+work with ah3.
+
+- Execute `pg_dump ah2 >pg3.db`
+- Execute `createdb ah3`
+- Execute `psql ah3 <ah3.db`
+- Execute `psql ah3 <newviews.psql`
+
+The last Command should give you some errors about views not existing.
+Other than that, you should not see any errors
+
+When you start ah3, you will get errors on the vendors table. This is
+normal for the circumstances. If you need to migrate your inventory tables
+over, contact me and I will help you. 
+
+\section using Using Ah3
+
+Ah2 can be started with by typing `ah3` from the command prompt assuming you
+put it one of the directories in your path.
+
+The work flow for Ah3 is similar to that of Ah2. For now, as I do not
+have any documentation for ah3, you can use the documents for it to help
+you through. I will start working on documents so they will be available in
+the near future. You can fnd the ah2 documentation at the ftp site with a
+ah3 tarball.
+
+*/
+
+
+

@@ -1,0 +1,11 @@
+# KDE Config File  
+[KDE Desktop Entry]
+Type=Application
+Exec=ah3xs
+Icon=/opt/ah3/icons/ah3xs-48.png
+Comment=AutoHouse (Small Screen)
+Comment[de]=
+Terminal=0
+Name=AutoHouse (Small Screen)
+Name[de]=AutoHouse (Small Screen)
+Categories=Office

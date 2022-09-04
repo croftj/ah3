@@ -1,0 +1,17 @@
+*** pg_hba.conf	2007-09-21 07:07:34.000000000 -0400
+--- pg_hba.conf.save	2007-09-21 07:07:14.000000000 -0400
+***************
+*** 66,71 ****
+  # "local" is for Unix domain socket connections only
+  local   all         all                               ident sameuser
+  # IPv4 local connections:
+! host    all         all         127.0.0.1/32          ident sameuser
+  # IPv6 local connections:
+  host    all         all         ::1/128               ident sameuser
+--- 66,71 ----
+  # "local" is for Unix domain socket connections only
+  local   all         all                               ident sameuser
+  # IPv4 local connections:
+! host    all         all         127.0.0.1/32          trust
+  # IPv6 local connections:
+  host    all         all         ::1/128               ident sameuser
