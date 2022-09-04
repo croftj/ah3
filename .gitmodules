@@ -1,0 +1,3 @@
+[submodule "QcjData"]
+	path = QcjData
+	url = git@github.com:croftj/QcjData
